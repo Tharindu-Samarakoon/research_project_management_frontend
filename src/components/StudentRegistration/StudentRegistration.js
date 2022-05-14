@@ -31,7 +31,7 @@ const theme = createTheme({
 
 const StudentRegistration = () => {
 
-  const dispatch = useDispatch();
+ // const dispatch = useDispatch();
   const [error, setErrorText] = React.useState();
   const [studentDetails, setStudentDetails] = React.useState({firstName: '', lastName: '', regNumber: '', studentEmail: '', password: '' });
   const [confPassword, setConfPassword] = React.useState('');
@@ -63,7 +63,7 @@ const StudentRegistration = () => {
     if(isValid) {
       console.log(studentDetails);
 
-      dispatch(studentDetails);
+      // dispatch(studentDetails);
 
     }
 
