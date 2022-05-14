@@ -14,6 +14,8 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import logo from '../../images/SLIIT_Logo.png'
 import { bgcolor } from '@mui/system';
+import { IconButton, InputAdornment } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 
 const theme = createTheme({
@@ -25,6 +27,12 @@ const theme = createTheme({
   });
 
 const Authentication = () => {
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -73,11 +81,15 @@ const Authentication = () => {
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus />
-              <TextField margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+              <TextField margin="normal" required fullWidth name="password" label="Password" type={showPassword ? 'text' : 'password'} id="password" autoComplete="current-password" InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleShowPassword} >
+                        {showPassword ? <Visibility /> :  <VisibilityOff /> }
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }} />
               <Button
                 type="submit"
                 fullWidth
