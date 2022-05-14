@@ -3,8 +3,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { borderRadius } from '@mui/system';
+// import { borderRadius } from '@mui/system';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility } from '@mui/icons-material';
 import { VisibilityOff } from '@material-ui/icons';
@@ -29,11 +29,11 @@ const theme = createTheme({
     },
   });
 
-const StudentRegistration = () => {
+const StaffRegistration = () => {
 
  // const dispatch = useDispatch();
   const [error, setErrorText] = React.useState();
-  const [studentDetails, setStudentDetails] = React.useState({firstName: '', lastName: '', regNumber: '', studentEmail: '', password: '' });
+  const [staffDetails, setStaffDetails] = React.useState({firstName:'', lastName:'', profilePicture:'', position:'', email:'', password:'', department:'', research_interest:''});
   const [confPassword, setConfPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false)
   const [isValid, setIsValid] = React.useState(false);
@@ -41,9 +41,9 @@ const StudentRegistration = () => {
   
 
   const comparePassword = (event) => {
-    console.log(studentDetails.password + typeof studentDetails.password );
+    console.log(staffDetails.password + typeof staffDetails.password );
     console.log(confPassword + typeof confPassword );
-    if (studentDetails.password !== confPassword){
+    if (staffDetails.password !== confPassword){
         setErrorText('Password do not match');
         setIsValid(false);
     } else {
@@ -61,9 +61,9 @@ const StudentRegistration = () => {
     comparePassword();
     
     if(isValid) {
-      console.log(studentDetails);
+      console.log(staffDetails);
 
-      // dispatch(studentDetails);
+      // dispatch(staffDetails);
 
     }
 
@@ -99,19 +99,25 @@ const StudentRegistration = () => {
           <form component="form" onSubmit={handleSubmit} style={{ marginTop: 10 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <TextField autoComplete="given-name" name="firstName" value={studentDetails.firstName} required fullWidth id="firstName" label="First Name" autoFocus onChange={(e) => setStudentDetails({ ...studentDetails, firstName: e.target.value })} />
+                <TextField autoComplete="given-name" name="firstName" value={staffDetails.firstName} required fullWidth id="firstName" label="First Name" autoFocus onChange={(e) => setStaffDetails({ ...staffDetails, firstName: e.target.value })} />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField required fullWidth id="lastName" label="Last Name" name="lastName" value={studentDetails.lastName} autoComplete="family-name" onChange={(e) => setStudentDetails({ ...studentDetails, lastName: e.target.value })} />
+                <TextField required fullWidth id="lastName" label="Last Name" name="lastName" value={staffDetails.lastName} autoComplete="family-name" onChange={(e) => setStaffDetails({ ...staffDetails, lastName: e.target.value })} />
               </Grid>
               <Grid item xs={12}>
-                <TextField required fullWidth name="regNumber" value={studentDetails.regNumber} label="Registration Number" id="regNumber" autoComplete="reg-Number" onChange={(e) => setStudentDetails({ ...studentDetails, regNumber: e.target.value })} />
+                <TextField required fullWidth name="department" value={staffDetails.department} label="Department" id="department" autoComplete="department" onChange={(e) => setStaffDetails({ ...staffDetails, department: e.target.value })} />
               </Grid>
               <Grid item xs={12}>
-                <TextField required fullWidth id="email" value={studentDetails.studentEmail} label="Student Email Address" name="email" autoComplete="email" onChange={(e) => setStudentDetails({ ...studentDetails, studentEmail: e.target.value }) } />
+                <TextField required fullWidth name="position" value={staffDetails.position} label="Position" id="position" autoComplete="position" onChange={(e) => setStaffDetails({ ...staffDetails, position: e.target.value })} />
               </Grid>
               <Grid item xs={12}>
-                <TextField required fullWidth name="password" label="Password" value={studentDetails.password} type={showPassword ? 'text' : 'password'} id="password" autoComplete="new-password" onChange={(e) => setStudentDetails({ ...studentDetails, password: e.target.value })} InputProps={{
+                <TextField required fullWidth name="research_interest" value={staffDetails.research_interest} label="Research Interest" id="research_interest" autoComplete="research_interest" onChange={(e) => setStaffDetails({ ...staffDetails, research_interest: e.target.value })} />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField required fullWidth id="email" value={staffDetails.staffEmail} label="Staff Email Address" name="email" autoComplete="email" onChange={(e) => setStaffDetails({ ...staffDetails, staffEmail: e.target.value }) } />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField required fullWidth name="password" label="Password" value={staffDetails.password} type={showPassword ? 'text' : 'password'} id="password" autoComplete="new-password" onChange={(e) => setStaffDetails({ ...staffDetails, password: e.target.value })} InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton onClick={handleShowPassword} >
@@ -144,4 +150,4 @@ const StudentRegistration = () => {
 }
 
 
-export default StudentRegistration;
+export default StaffRegistration;
