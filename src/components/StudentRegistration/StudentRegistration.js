@@ -18,6 +18,8 @@ import { Visibility } from '@mui/icons-material';
 import { VisibilityOff } from '@material-ui/icons';
 import { useDispatch } from 'react-redux'
 
+import useStyles from './styles'
+
 const theme = createTheme({
     palette: {
       primary: {
@@ -30,6 +32,8 @@ const theme = createTheme({
   });
 
 const StudentRegistration = () => {
+
+  const classes = useStyles();
 
  // const dispatch = useDispatch();
   const [error, setErrorText] = React.useState();
@@ -76,7 +80,7 @@ const StudentRegistration = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" >
         <CssBaseline />
         <Box
           sx={{

@@ -1,4 +1,5 @@
 import { createTheme, makeStyles } from '@material-ui/core';
+// import RegBackground from '../../images/StudentReg.jpg'
 
 export const themeOptions = createTheme({
   palette: {
@@ -13,8 +14,12 @@ export const themeOptions = createTheme({
 );
 
 
-export const useStyles = makeStyles({
+const useStyles = makeStyles({
 
-    
+    // container: {
+    //   backgroundImage: `url(${RegBackground})`
+    // }
   
 }); 
+
+export default useStyles;
