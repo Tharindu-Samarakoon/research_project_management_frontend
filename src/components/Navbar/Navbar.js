@@ -13,7 +13,8 @@ const Navbar = () => {
   }
 
   return (
-    <nav className='NavbarItems'>
+    <div>
+      <nav className='NavbarItems'>
         <h1 className="navbar-logo"><img className='fab fa-react' src={logo} height='30'></img> Research Project </h1>
         <div className="menu-icon" onClick={handleClick}>
           <i className={state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
@@ -27,7 +28,11 @@ const Navbar = () => {
           <a href="#" className="btn btn-secondary">Sign up</a>
         </ul>
         
+        
     </nav>
+    
+    </div>
+    
   )
 }
 

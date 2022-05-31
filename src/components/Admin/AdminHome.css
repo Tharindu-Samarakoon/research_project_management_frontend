@@ -1,0 +1,11 @@
+.redAvatar{
+    height: 150px;
+    width: 150px;
+    margin-left: 150px;
+    margin-top: 150px;
+    transition: 0.5s;
+}
+
+.redAvatar:hover{
+    transform: 1.1;    
+}
