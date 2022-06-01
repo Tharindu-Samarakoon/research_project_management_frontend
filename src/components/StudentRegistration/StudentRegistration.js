@@ -45,14 +45,12 @@ const StudentRegistration = () => {
   
 
   const comparePassword = (event) => {
-    console.log(studentDetails.password + typeof studentDetails.password );
-    console.log(confPassword + typeof confPassword );
     if (studentDetails.password !== confPassword){
         setErrorText('Password do not match');
-        setIsValid(false);
+        return false;
     } else {
         setErrorText('');
-        setIsValid(true);
+        return true;
     }
   }
 
@@ -62,13 +60,8 @@ const StudentRegistration = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    comparePassword();
-    
-    if(isValid) {
+    if(comparePassword()) {
       console.log(studentDetails);
-
-      // dispatch(studentDetails);
-
     }
 
     

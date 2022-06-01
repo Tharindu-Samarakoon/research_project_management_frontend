@@ -6,14 +6,20 @@ import StudentProfile from './components/StudentProfile/StudentProfile'
 import StudentRegistration from './components/StudentRegistration/StudentRegistration'
 import { Route, Routes } from 'react-router-dom'
 import ViewSupervisors from './components/ViewSupervisors/ViewSupervisors'
+import StudentGroupConf from './components/StudentGroupConf/StudentGroupConf'
+import StudentTopicRegistration from './components/StudentTopicRegistration/StudentTopicRegistration'
+
 
 const App = () => {
   return (
-    // <Routes>
-    //   <Route exact path='/' element={<Authentication />} />
-    //   <Route path='/StudentRegistration' element={<StudentRegistration />} />
-    // </Routes>
-    <StudentProfile />
+    <Routes>
+      <Route exact path='/' element={<Authentication />} />
+      <Route path='/StudentRegistration' element={<StudentRegistration />} />
+    </Routes>
+    // <div className="">
+    // <Navbar />
+    // <StudentTopicRegistration />
+    // </div>
     // <div className="">Hello</div>
   )
 }
