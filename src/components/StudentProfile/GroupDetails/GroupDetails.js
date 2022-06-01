@@ -1,4 +1,4 @@
-import { TableContainer, TableHead, Table, TableRow, TableCell, TableBody, Paper, Avatar, Typography, createTheme } from '@mui/material';
+import { TableContainer, TableHead, Table, TableRow, TableCell, TableBody, Paper, Avatar, Typography, createTheme, Divider } from '@mui/material';
 import React from 'react'
 
 const GroupDetails = () => {
@@ -28,8 +28,8 @@ const GroupDetails = () => {
 
   return (
     <div>
-        <Typography variant='h6'>Group Members</Typography>
-        <br />
+        <Typography variant='h6' color="primary">Group Members</Typography>
+        <Divider variant='middle'/>
         <TableContainer sx={{borderColor: 'primary'}}>
       <Table sx={{ borderRadius: 1, borderStyle: 'hidden'}} aria-label="simple table" >
         <TableHead>
