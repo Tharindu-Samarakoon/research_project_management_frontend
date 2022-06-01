@@ -13,9 +13,8 @@ const Navbar = () => {
   }
 
   return (
-    <div>
-      <nav className='NavbarItems'>
-        <h1 className="navbar-logo"><img className='fab fa-react' src={logo} height='30'></img> Research Project </h1>
+    <nav className='NavbarItems'>
+        <h1 className="navbar-logo"><img className='fab fa-react' src={logo} height='30' alt='SLIIT logo'></img> Research Project </h1>
         <div className="menu-icon" onClick={handleClick}>
           <i className={state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
         </div>
@@ -30,8 +29,6 @@ const Navbar = () => {
         
         
     </nav>
-    
-    </div>
     
   )
 }
