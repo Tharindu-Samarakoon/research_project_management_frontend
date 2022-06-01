@@ -18,6 +18,8 @@ import { Visibility } from '@mui/icons-material';
 import { VisibilityOff } from '@material-ui/icons';
 // import { useDispatch } from 'react-redux'
 
+import useStyles from './styles'
+
 const theme = createTheme({
     palette: {
       primary: {
@@ -31,6 +33,8 @@ const theme = createTheme({
 
 const StudentRegistration = () => {
 
+  const classes = useStyles();
+
  // const dispatch = useDispatch();
   const [error, setErrorText] = React.useState();
   const [studentDetails, setStudentDetails] = React.useState({firstName: '', lastName: '', regNumber: '', studentEmail: '', password: '' });
@@ -41,14 +45,12 @@ const StudentRegistration = () => {
   
 
   const comparePassword = (event) => {
-    console.log(studentDetails.password + typeof studentDetails.password );
-    console.log(confPassword + typeof confPassword );
     if (studentDetails.password !== confPassword){
         setErrorText('Password do not match');
-        setIsValid(false);
+        return false;
     } else {
         setErrorText('');
-        setIsValid(true);
+        return true;
     }
   }
 
@@ -58,13 +60,8 @@ const StudentRegistration = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    comparePassword();
-    
-    if(isValid) {
+    if(comparePassword()) {
       console.log(studentDetails);
-
-      // dispatch(studentDetails);
-
     }
 
     
@@ -76,7 +73,7 @@ const StudentRegistration = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" >
         <CssBaseline />
         <Box
           sx={{
