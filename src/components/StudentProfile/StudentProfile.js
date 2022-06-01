@@ -1,11 +1,18 @@
-import { Avatar, Card, Container, Grid, Paper, Typography } from '@mui/material'
+import { Avatar, Card, Container, Divider, Grid, ListItem, Paper, Typography, List, ListItemAvatar, ThemeProvider, Button  } from '@mui/material'
 import profile from '../../images/profile.jpg';
 import { bgcolor, Box } from '@mui/system'
+import EmailIcon from '@mui/icons-material/Email'
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import GroupIcon from '@mui/icons-material/Group';
+import ScienceIcon from '@mui/icons-material/Science';
+import DeleteIcon from '@mui/icons-material/Delete'
 import React from 'react'
 import Navbar from '../Navbar/Navbar'
 
 import useStyles from './styles';
 import GroupDetails from './GroupDetails/GroupDetails';
+import { IconButton } from '@material-ui/core';
+import theme from '../theme/Theme';
 
 const StudentProfile = () => {
     const classes = useStyles();
@@ -41,22 +48,62 @@ const StudentProfile = () => {
     //         </Grid>
     //     </div>
     // </Paper>
-    <div className="container">
-        <div className="row">
-            <div className="col-sm-12 col-md-4 col-lg-3">
+    <ThemeProvider theme={theme}>
+    <div className="container mt-3">
+        <div className="row bg-light p-2">
+            <div className="col-sm-12 col-md-4 col-lg-3 d-flex justify-content-center">
                 <Avatar
                     alt="Remy Sharp"
-                    variant='rounded'
+                    variant='circle'
                     src="/static/images/avatar/1.jpg"
-                    sx={{ width: 120, height: 120 }}
+                    sx={{ width: 200, height: 200 }}
                 />
             </div>
-            <div className="col-sm-12 col-md-8 col-lg-9">
-                
+            <div className="col-sm-12 col-md-8 col-lg-9 align-items-bottom pt-3">
+                <div className="row">
+
+                    <Typography component='div' variant='h5' gutterBottom>Aurthor Morgan</Typography>
+                </div>
+                <Divider variant='middle' color='primary' />
+                <div className="row">
+                    <EmailIcon />
+                    <Typography component='div' variant='subtitle1' gutterBottom>Email Address : </Typography>
+                </div>
+                <div className="row">
+                    <Typography component='div' variant='subtitle1' gutterBottom>Contact Number : </Typography>
+                </div>
+                <Divider variant='middle' color='primary' />
+                <div className="row">
+                    <Typography component='div' variant='subtitle1' gutterBottom>Group : </Typography>
+                    <Typography component='div' variant='subtitle1' gutterBottom>Research Topic : </Typography>
+                </div>
+            </div>
+            <div className="col-sm-12 d-flex justify-content-end gy-2">
+                <Button variant="text" size='small' startIcon={<ManageAccountsIcon />}>
+                Update Profile
+                </Button>
+                <Button variant="text" size='small' startIcon={<ScienceIcon />}>
+                Research Topic
+                </Button>
+                <Button variant="text" size='small' startIcon={<GroupIcon />}>
+                Group Details
+                </Button>
             </div>
         </div>
-        <div className="row"></div>
+        <div className="row mt-3 g-2">
+            <div className="col-sm-12 col-md-6 mt-5 bg-light p-1">
+            <Typography variant="h5" color="primary">Submissions</Typography>
+                <Divider variant='middle'/>
+                <List >
+                        <ListItem>
+                            <Typography component='div' variant='subtitle1' gutterBottom >Topic Submission</Typography>
+                        </ListItem>
+                    </List>
+                </div>  
+            <div className="col-sm-12 col-md-6 mt-5 bg-light p-1"><GroupDetails /></div>
+        </div>
     </div>
+    </ThemeProvider>
   )
 }
 

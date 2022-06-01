@@ -15,7 +15,10 @@ import logo from '../../images/SLIIT_Logo.png'
 import { bgcolor } from '@mui/system';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { studentLogin } from '../../api';
+import { signIn } from '../../actions/auth';
 
 
 const theme = createTheme({
@@ -30,17 +33,24 @@ const Authentication = () => {
 
   const [showPassword, setShowPassword] = React.useState(false);
 
+  const dispatch = useDispatch();
+  const history = useNavigate();
+
   const handleShowPassword = () => {
     setShowPassword(!showPassword)
   }
 
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const result = dispatch(signIn({
       email: data.get('email'),
       password: data.get('password'),
-    });
+    }, history));
+    console.log(result);
+
   };
 
   return (
@@ -100,12 +110,12 @@ const Authentication = () => {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link to='/' >
+                  <Link to='/' color='primary' >
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link to='/StudentRegistration' >
+                  <Link to='/StudentRegistration' color='#061d34' >
                     Don't have an account? Sign Up
                   </Link>
                 </Grid>
