@@ -9,9 +9,9 @@ import reducers from './reducers';
 
 import App from './App'
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-
-const store = createStore(reducers, compose(applyMiddleware(thunk)));
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 
 const container = document.getElementById('root');
 const root = createRoot(container);
