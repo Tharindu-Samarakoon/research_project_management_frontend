@@ -15,6 +15,8 @@ const App = () => {
     <Routes>
       <Route exact path='/' element={<Authentication />} />
       <Route path='/StudentRegistration' element={<StudentRegistration />} />
+      <Route path='/studentProfile' element={ <StudentProfile /> } />
+      <Route path='/studentGroupReg' element={ <StudentGroupConf /> } />
     </Routes>
     // <div className="">
     // <Navbar />
