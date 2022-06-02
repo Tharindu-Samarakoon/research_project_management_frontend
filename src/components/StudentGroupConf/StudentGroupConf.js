@@ -18,17 +18,20 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 
-  const student = localStorage.getItem('student');
-  console.log(JSON.parse(student));
 
-  if(!student) {
-      console.log('hello');
-      window.location = '/'
-  }
 
-  const currentStudent = JSON.parse(student).user;
 
 const StudentGroupConf = () => {
+
+    const student = localStorage.getItem('student');
+    console.log(JSON.parse(student));
+  
+    if(!student) {
+        console.log('hello');
+        window.location = '/'
+    }
+    
+    const currentStudent = JSON.parse(student).user;
 
     const [details, setDetails] = useState(true);
     const [groupMembers, setGroupMembers] = useState({
@@ -59,7 +62,7 @@ const StudentGroupConf = () => {
     }
 
     const handleRegistration = () => {
-        
+
     }
 
 
