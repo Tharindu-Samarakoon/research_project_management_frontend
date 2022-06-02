@@ -1,6 +1,7 @@
 import React from 'react'
 import Authentication from './components/Authentication/Authentication'
 import Submit from './components/SubmittedGroupList/SubmittedGroupList'
+import GroupTopicAccept from './components/GroupTopicAccept/GroupTopicAccept'
 import Navbar from './components/Navbar/Navbar'
 import Home from './Pages/Home/Home'
 import StudentProfile from './components/StudentProfile/StudentProfile'
@@ -16,8 +17,8 @@ const App = () => {
     <Routes>
       <Route exact path='/' element={<Authentication />} />
       <Route path='/StudentRegistration' element={<StudentRegistration />} />
-      <Route path='/
-      ' element={<Submit/>}/>
+      <Route path='/group ' element={<Submit/>}/>
+      <Route path='/topicAccept' element={<GroupTopicAccept/>} />
     </Routes>
     // <div className="">
     // <Navbar />
