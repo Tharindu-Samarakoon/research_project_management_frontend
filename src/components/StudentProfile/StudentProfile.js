@@ -122,7 +122,7 @@ const StudentProfile = () => {
                         </ListItem>
                     </List>
                 </div>  
-            <div className="col-sm-12 col-md-6 mt-5 bg-light p-1">{currentStudent.group ? <GroupDetails /> : ""}</div>
+            <div className="col-sm-12 col-md-6 mt-5 bg-light p-1">{currentStudent.group ? <GroupDetails group={currentStudent.group} leader={currentStudent.email} /> : ""}</div>
         </div>
     </div>
     </ThemeProvider>

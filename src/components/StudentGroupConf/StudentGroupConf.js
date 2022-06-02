@@ -48,21 +48,29 @@ const StudentGroupConf = () => {
 
     const handleVerify = async (e) => {
         e.preventDefault();
-        console.log(groupMembers);
+
         const members = await axios.post(URL + '/studentGroups/verify', groupMembers);
-        console.log(members);
+
         setVerifiedMembers(members.data);
-        console.log(verifiedMembers);
+
         setGroupForm(true);
     }
 
-    const handleClear = () => {
+    const handleClear = async () => {
         setDetails(true);
         setGroupForm(false)
     }
 
-    const handleRegistration = () => {
-
+    const handleRegistration = async () => {
+        console.log('IF Working');
+        try {
+            const groupFinal = {members: [groupMembers.member1, groupMembers.member2, groupMembers.member3], group: {leader: currentStudent.email}};
+            const res = await axios.post(URL + '/studentGroups/addGroup', groupFinal);
+            console.log(groupFinal);
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 
