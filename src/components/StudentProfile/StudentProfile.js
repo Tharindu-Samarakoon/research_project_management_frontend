@@ -13,9 +13,31 @@ import useStyles from './styles';
 import GroupDetails from './GroupDetails/GroupDetails';
 import { IconButton } from '@material-ui/core';
 import theme from '../theme/Theme';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const StudentProfile = () => {
     const classes = useStyles();
+    const navigate = useNavigate();
+
+    const student = localStorage.getItem('student');
+    console.log(JSON.parse(student));
+
+    if(!student) {
+        console.log('hello');
+        window.location = '/'
+    }
+
+    const currentStudent = JSON.parse(student).user;
+
+    const handleUpdate = () => {
+        localStorage.clear();
+        navigate('/');
+    }
+
+    console.log(currentStudent);
+
+
   return (
     // <Paper sx={{backgroundColor: '#f5a000'}}>
     //     <Navbar />
@@ -62,30 +84,30 @@ const StudentProfile = () => {
             <div className="col-sm-12 col-md-8 col-lg-9 align-items-bottom pt-3">
                 <div className="row">
 
-                    <Typography component='div' variant='h5' gutterBottom>Aurthor Morgan</Typography>
+                    <Typography component='div' variant='h5' gutterBottom>{currentStudent.firstName + " " + currentStudent.lastName}</Typography>
                 </div>
                 <Divider variant='middle' color='primary' />
                 <div className="row">
                     <EmailIcon />
-                    <Typography component='div' variant='subtitle1' gutterBottom>Email Address : </Typography>
+                    <Typography component='div' variant='subtitle1' gutterBottom><b>Email Address :</b> {currentStudent.email}</Typography>
                 </div>
                 <div className="row">
-                    <Typography component='div' variant='subtitle1' gutterBottom>Contact Number : </Typography>
+                    <Typography component='div' variant='subtitle1' gutterBottom><b>Contact Number :</b> {currentStudent.contactNum}</Typography>
                 </div>
                 <Divider variant='middle' color='primary' />
                 <div className="row">
-                    <Typography component='div' variant='subtitle1' gutterBottom>Group : </Typography>
-                    <Typography component='div' variant='subtitle1' gutterBottom>Research Topic : </Typography>
+                    <Typography component='div' variant='subtitle1' gutterBottom><b>Registration No :</b> {currentStudent.regNumber}</Typography>
+                    <Typography component='div' variant='subtitle1' gutterBottom><b>Group :</b> {currentStudent.group || 'Not Assigned'}</Typography>
                 </div>
             </div>
             <div className="col-sm-12 d-flex justify-content-end gy-2">
-                <Button variant="text" size='small' startIcon={<ManageAccountsIcon />}>
+                <Button variant="text" size='small' startIcon={<ManageAccountsIcon />} onClick={handleUpdate}>
                 Update Profile
                 </Button>
                 <Button variant="text" size='small' startIcon={<ScienceIcon />}>
                 Research Topic
                 </Button>
-                <Button variant="text" size='small' startIcon={<GroupIcon />}>
+                <Button variant="text" size='small' startIcon={<GroupIcon />} href='/studentGroupReg'>
                 Group Details
                 </Button>
             </div>
@@ -100,7 +122,7 @@ const StudentProfile = () => {
                         </ListItem>
                     </List>
                 </div>  
-            <div className="col-sm-12 col-md-6 mt-5 bg-light p-1"><GroupDetails /></div>
+            <div className="col-sm-12 col-md-6 mt-5 bg-light p-1">{currentStudent.group ? <GroupDetails /> : ""}</div>
         </div>
     </div>
     </ThemeProvider>
