@@ -26,7 +26,7 @@ const StudentProfile = () => {
     if(!student) {
         console.log('hello');
         window.location = '/'
-    }
+    } 
 
     const currentStudent = JSON.parse(student).user;
 
