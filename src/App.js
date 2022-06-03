@@ -12,7 +12,8 @@ import ViewSupervisors from './components/ViewSupervisors/ViewSupervisors'
 // import StudentGroupConf from './components/StudentGroupConf/StudentGroupConf'
 import StudentGroupConf from './components/StudentGroupConf/StudentGroupConf' 
 import StudentTopicRegistration from './components/StudentTopicRegistration/StudentTopicRegistration'
-
+import { Link } from "react-router-dom";
+import CoSupervisorGroupList from './components/CoSupervisorGroupList/CoSupervisorGroupList'
 
 const App = () => {
   return (
@@ -21,12 +22,14 @@ const App = () => {
       <Route path='/StudentRegistration' element={<StudentRegistration />} />
       <Route path='/staffRegistration' element={<StaffRegistration/>} />
       <Route path='/group' element={<Submit/>}/>
+      <Route path='/coSupervisorG' element={<CoSupervisorGroupList/>}/>
       <Route path='/topicAccept' element={<GroupTopicAccept/>} />
       <Route path='/studentProfile' element={ <StudentProfile /> } />
       {/* <Route path='/studentGroupReg' element={ <StudentGroupConf /> } /> */}
       <Route exact path='/StudentRegistration' element={<StudentRegistration />} />
       <Route exact path='/studentProfile' element={ <StudentProfile /> } />
       <Route exact path='/studentGroupReg' element={ <StudentGroupConf /> } />
+      
     </Routes>
   )
 }
