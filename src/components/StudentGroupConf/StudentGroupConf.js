@@ -23,7 +23,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const StudentGroupConf = () => {
 
-    const student = localStorage.getItem('student');
+    let student = localStorage.getItem('student');
     console.log(JSON.parse(student));
   
     if(!student) {
@@ -31,6 +31,7 @@ const StudentGroupConf = () => {
         window.location = '/'
     }
     
+    let currentStudent1 = JSON.parse(student);
     const currentStudent = JSON.parse(student).user;
 
     const [details, setDetails] = useState(true);
@@ -68,6 +69,10 @@ const StudentGroupConf = () => {
             const res = await axios.post(URL + '/studentGroups/addGroup', groupFinal);
             console.log(groupFinal);
             console.log(res);
+            currentStudent1.user.group = res.data._id;
+            student = JSON.stringify(currentStudent1);
+            localStorage.setItem('student', student);
+            
         } catch (error) {
             console.log(error);
         }
@@ -76,7 +81,8 @@ const StudentGroupConf = () => {
 
   return (
     <ThemeProvider theme={theme}>
-        <div className="container groupContainer">
+        <NavbarMUI />
+        <div className="container groupContainer mt-4">
             <div className="row bg-light d-flex justify-content-center mt-3 p-3 rounded-2">
                 <form action="" className='row gy-4' onSubmit={handleVerify}>
                     <Typography component='div' variant='h5'>Group Members</Typography>

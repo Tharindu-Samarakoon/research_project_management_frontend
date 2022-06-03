@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import theme from '../theme/Theme'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import NavbarMUI from '../NabarMUI/NavbarMUI';
 
 const StudentTopicRegistration = () => {
 
@@ -31,6 +32,7 @@ const StudentTopicRegistration = () => {
 
   return (
     <ThemeProvider theme={theme}>
+        <NavbarMUI />
         <div className="container">
             <Card color='primary' variant='outlined' className='bg-light mt-3'>
                 <CardContent>

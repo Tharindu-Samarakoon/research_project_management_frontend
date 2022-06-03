@@ -8,6 +8,7 @@ import SupervisorDetails from './SupervisorDetails/SupervisorDetails'
 import theme from '../theme/Theme'
 import axios from 'axios'
 import { URL } from '../../constants/url'
+import NavbarMUI from '../NabarMUI/NavbarMUI'
 
 const ViewSupervisors = () => {
 
@@ -72,7 +73,8 @@ const ViewSupervisors = () => {
 
   return (
     <ThemeProvider theme={theme}>
-    <div className='main-list'>
+      <NavbarMUI />
+    <div className='main-list mt-4'>
         <div className="container mt-2">
           <Typography variant='h4' component='div' gutterBottom >Supervisors</Typography>
           <Divider />

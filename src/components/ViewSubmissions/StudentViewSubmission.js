@@ -1,8 +1,10 @@
 import { ThemeProvider, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavbarMUI from '../NabarMUI/NavbarMUI'
 import theme from '../theme/Theme'
 import Base64Downloader from 'common-base64-downloader-react';
+import axios from 'axios';
+import { URL } from '../../constants/url';
 
 const StudentViewSubmission = () => {
 
@@ -14,10 +16,27 @@ const StudentViewSubmission = () => {
         window.location = '/'
     } 
 
+    const [submissions, setSubmissions] = useState([]);
+
     const currentStudent = JSON.parse(student).user;
     const base64PDF =
     "data:application/pdf;base64,JVBERi0xLjcKCjEgMCBvYmogICUgZW50cnkgcG9pbnQKPDwKICAvVHlwZSAvQ2F0YWxvZwogIC9QYWdlcyAyIDAgUgo+PgplbmRvYmoKCjIgMCBvYmoKPDwKICAvVHlwZSAvUGFnZXMKICAvTWVkaWFCb3ggWyAwIDAgMjAwIDIwMCBdCiAgL0NvdW50IDEKICAvS2lkcyBbIDMgMCBSIF0KPj4KZW5kb2JqCgozIDAgb2JqCjw8CiAgL1R5cGUgL1BhZ2UKICAvUGFyZW50IDIgMCBSCiAgL1Jlc291cmNlcyA8PAogICAgL0ZvbnQgPDwKICAgICAgL0YxIDQgMCBSIAogICAgPj4KICA+PgogIC9Db250ZW50cyA1IDAgUgo+PgplbmRvYmoKCjQgMCBvYmoKPDwKICAvVHlwZSAvRm9udAogIC9TdWJ0eXBlIC9UeXBlMQogIC9CYXNlRm9udCAvVGltZXMtUm9tYW4KPj4KZW5kb2JqCgo1IDAgb2JqICAlIHBhZ2UgY29udGVudAo8PAogIC9MZW5ndGggNDQKPj4Kc3RyZWFtCkJUCjcwIDUwIFRECi9GMSAxMiBUZgooSGVsbG8sIHdvcmxkISkgVGoKRVQKZW5kc3RyZWFtCmVuZG9iagoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDEwIDAwMDAwIG4gCjAwMDAwMDAwNzkgMDAwMDAgbiAKMDAwMDAwMDE3MyAwMDAwMCBuIAowMDAwMDAwMzAxIDAwMDAwIG4gCjAwMDAwMDAzODAgMDAwMDAgbiAKdHJhaWxlcgo8PAogIC9TaXplIDYKICAvUm9vdCAxIDAgUgo+PgpzdGFydHhyZWYKNDkyCiUlRU9G";
 
+    useEffect(() => {
+        getSubmissions();
+    }, []);
+
+    const getSubmissions = async () => {
+        try {
+            axios.defaults.headers.common["auth-token"] = currentStudent.data;
+            const result = await axios.get(URL + '/submissions/get');
+            setSubmissions(result.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    console.log(submissions);
 
   return (
     <ThemeProvider theme={theme}>
@@ -38,21 +57,27 @@ const StudentViewSubmission = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">Document</th>
-                                <td>SRS Submission</td>
-                                <td>10/2/2022</td>
-                                <td>
-                                    <Base64Downloader base64={base64PDF} downloadName="pdfDownload">
-                                        Something.pdf
-                                    </Base64Downloader>
-                                </td>
-                                <td>
-                                    <Base64Downloader base64={base64PDF} downloadName="pdfDownload">
-                                        Something.pdf
-                                    </Base64Downloader>
-                                </td>
-                            </tr>
+                            {submissions.map(
+                                (sub) => {
+                                    return(
+                                        <tr key={sub._id}>
+                                        <th scope="row">{sub.submissionType}</th>
+                                        <td>{sub.description}</td>
+                                        <td>{sub.deadline}</td>
+                                        <td>
+                                            <Base64Downloader base64={sub.template} downloadName="pdfDownload">
+                                                Something.pdf
+                                            </Base64Downloader>
+                                        </td>
+                                        <td>
+                                            <Base64Downloader base64={sub.markingScheme} downloadName="pdfDownload">
+                                                Something.pdf
+                                            </Base64Downloader>
+                                        </td>
+                                    </tr>
+                                    )
+                                }
+                            )}
                         </tbody>
                     </table>
                 </div>

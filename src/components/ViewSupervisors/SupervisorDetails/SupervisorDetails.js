@@ -1,7 +1,9 @@
 import { Avatar, Button, Divider, Typography } from '@mui/material'
 import axios from 'axios';
 import React from 'react'
+import { toast, ToastContainer } from 'react-toastify';
 import { URL } from '../../../constants/url';
+import 'react-toastify/dist/ReactToastify.css'
 
 const SupervisorDetails = ({type, user, token, student}) => {
 
@@ -11,6 +13,12 @@ const SupervisorDetails = ({type, user, token, student}) => {
       axios.defaults.headers.common["auth-token"] = token;
       const res = await axios.post(URL+'/studentGroups/requestSupervisor/'+ student.group, {supervisor: user.email});
       console.log(res);
+      if(res.status = 200){
+        toast.success("Request Sent");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000)
+      }
     } catch (error) {
       console.log(error);
     }
@@ -19,6 +27,7 @@ const SupervisorDetails = ({type, user, token, student}) => {
   console.log(user);
   return (
     <div className="row border border-secondary p-3 m-3 rounded">
+      <ToastContainer position='top-center' />
               <div className="col-sm-12 col-md-3 col-lg-2 d-flex justify-content-center align-items-center">
                 <Avatar
                   alt="Remy Sharp"
