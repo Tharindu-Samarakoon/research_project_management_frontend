@@ -17,6 +17,7 @@ import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility } from '@mui/icons-material';
 import { VisibilityOff } from '@material-ui/icons';
 import { useDispatch } from 'react-redux'
+import FileBase from "react-file-base64";
 
 import {useNavigate} from 'react-router-dom';
 
@@ -133,6 +134,20 @@ const StudentRegistration = () => {
               <Grid item xs={12}>
                 <TextField required fullWidth name="confpassword" value={confPassword} label="Confirm Password" type="password" id="confpassword" autoComplete="new-password" onChange={(e) => {setConfPassword(e.target.value)}} helperText={error} error={!!error} />
               </Grid>
+              <Grid item xs={12}>
+              <Button
+                variant="contained"
+                component="label">
+                <FileBase
+                  type="file"
+                  className={classes.profilePic}
+                  style={{width: 0}}
+                  multiple={false}
+                  hidden={true}
+                  onDone={({ base64 }) => setStudentDetails({ ...studentDetails, profilePicture: base64 })}
+                ></FileBase>
+                </Button>
+                </Grid>
             </Grid>
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2}}
             >

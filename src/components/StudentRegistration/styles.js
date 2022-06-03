@@ -19,6 +19,10 @@ const useStyles = makeStyles({
     // container: {
     //   backgroundImage: `url(${RegBackground})`
     // }
+
+    profilePic: {
+      backgroundColor: '#061d34',
+    }
   
 }); 
 

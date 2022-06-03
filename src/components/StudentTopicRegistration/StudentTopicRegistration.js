@@ -1,8 +1,34 @@
 import { Card, CardContent, Typography, TextField, ThemeProvider, Button } from '@mui/material'
-import React from 'react'
+import {URL} from '../../constants/url'
+import React, { useState } from 'react'
 import theme from '../theme/Theme'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const StudentTopicRegistration = () => {
+
+    const student = localStorage.getItem('student');
+
+    if(!student) {
+        console.log('hello');
+        window.location = '/'
+    } 
+
+    const currentStudent = JSON.parse(student).user;
+
+    const [topic, setTopic] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            console.log(topic);
+            const res = await axios.post(URL+'/studentGroups/addTopic/'+currentStudent.group, {topic: topic});
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
   return (
     <ThemeProvider theme={theme}>
         <div className="container">
@@ -14,6 +40,8 @@ const StudentTopicRegistration = () => {
                             <TextField
                               id="Topic"
                               label="Topic*"
+                              value={topic}
+                              onChange={(e) => {setTopic(e.target.value)}}
                               fullWidth
                             />
                         </div>
@@ -22,14 +50,14 @@ const StudentTopicRegistration = () => {
                               id="Group"
                               label="Group*"
                               disabled
-                              value={'WE_2022_42'}
+                              value={currentStudent.group}
                               fullWidth
                             />
                         </div>
                     </div>
                     <div className="row mt-3">
                         <div className="col d-flex justify-content-end">
-                            <Button variant='contained'>Submit</Button>
+                            <Button variant='contained' onClick={handleSubmit} >Submit</Button>
                         </div>
                     </div>
                 </CardContent>

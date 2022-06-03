@@ -8,6 +8,7 @@ import { Route, Routes } from 'react-router-dom'
 import ViewSupervisors from './components/ViewSupervisors/ViewSupervisors'
 import StudentGroupConf from './components/StudentGroupConf/StudentGroupConf' 
 import StudentTopicRegistration from './components/StudentTopicRegistration/StudentTopicRegistration'
+import StudentViewSubmission from './components/ViewSubmissions/StudentViewSubmission'
 
 
 const App = () => {
@@ -17,6 +18,9 @@ const App = () => {
       <Route exact path='/StudentRegistration' element={<StudentRegistration />} />
       <Route exact path='/studentProfile' element={ <StudentProfile /> } />
       <Route exact path='/studentGroupReg' element={ <StudentGroupConf /> } />
+      <Route exact path='/SelectSupervisor' element={<ViewSupervisors/> } />
+      <Route exact path='/studentTopicReg' element={ <StudentTopicRegistration/> } />
+      <Route exact path='/studentSubmission' element={ <StudentViewSubmission /> } />
     </Routes>
   )
 }

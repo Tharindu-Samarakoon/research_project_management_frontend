@@ -15,6 +15,7 @@ import { IconButton } from '@material-ui/core';
 import theme from '../theme/Theme';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import NavbarMUI from '../NabarMUI/NavbarMUI';
 
 const StudentProfile = () => {
     const classes = useStyles();
@@ -71,13 +72,14 @@ const StudentProfile = () => {
     //     </div>
     // </Paper>
     <ThemeProvider theme={theme}>
+        <NavbarMUI user={currentStudent}/>
     <div className="container mt-3">
         <div className="row bg-light p-2">
             <div className="col-sm-12 col-md-4 col-lg-3 d-flex justify-content-center">
                 <Avatar
                     alt="Remy Sharp"
                     variant='circle'
-                    src="/static/images/avatar/1.jpg"
+                    src={currentStudent.profilePicture}
                     sx={{ width: 200, height: 200 }}
                 />
             </div>
@@ -104,7 +106,7 @@ const StudentProfile = () => {
                 <Button variant="text" size='small' startIcon={<ManageAccountsIcon />} onClick={handleUpdate}>
                 Update Profile
                 </Button>
-                <Button variant="text" size='small' startIcon={<ScienceIcon />}>
+                <Button variant="text" size='small' startIcon={<ScienceIcon />} href='/studentTopicReg'>
                 Research Topic
                 </Button>
                 <Button variant="text" size='small' startIcon={<GroupIcon />} href='/studentGroupReg'>
