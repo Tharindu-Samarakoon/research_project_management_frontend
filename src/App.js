@@ -10,6 +10,7 @@ import { Route, Routes } from 'react-router-dom'
 import StaffRegistration from './components/StaffRegistration/StaffRegistration'
 import ViewSupervisors from './components/ViewSupervisors/ViewSupervisors'
 // import StudentGroupConf from './components/StudentGroupConf/StudentGroupConf'
+import StudentGroupConf from './components/StudentGroupConf/StudentGroupConf' 
 import StudentTopicRegistration from './components/StudentTopicRegistration/StudentTopicRegistration'
 
 
@@ -23,12 +24,10 @@ const App = () => {
       <Route path='/topicAccept' element={<GroupTopicAccept/>} />
       <Route path='/studentProfile' element={ <StudentProfile /> } />
       {/* <Route path='/studentGroupReg' element={ <StudentGroupConf /> } /> */}
+      <Route exact path='/StudentRegistration' element={<StudentRegistration />} />
+      <Route exact path='/studentProfile' element={ <StudentProfile /> } />
+      <Route exact path='/studentGroupReg' element={ <StudentGroupConf /> } />
     </Routes>
-    // <div className="">
-    // <Navbar />
-    // <StudentTopicRegistration />
-    // </div>
-    // <div className="">Hello</div>
   )
 }
 

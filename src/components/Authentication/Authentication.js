@@ -4,7 +4,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { Link } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Paper from '@mui/material/Paper';
@@ -16,7 +15,7 @@ import logo from '../../images/SLIIT_Logo.png'
 import { bgcolor } from '@mui/system';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { studentLogin } from '../../api';
 import { signIn } from '../../actions/auth';
@@ -129,12 +128,12 @@ const Authentication = () => {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href='/' color='primary' >
+                  <Link to='/' color='primary' >
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href='/StudentRegistration' color='#061d34' >
+                  <Link to='/StudentRegistration' color='#061d34' >
                     Don't have an account? Sign Up
                   </Link>
                 </Grid>
