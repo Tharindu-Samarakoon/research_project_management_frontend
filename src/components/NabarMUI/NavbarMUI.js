@@ -15,10 +15,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import logo from '../../images/SLIIT_Logo.png'
+import { useNavigate } from 'react-router-dom';
 
 const NavbarMUI = ({user}) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const navigate = useNavigate();
 
     const pages = ['Products', 'Pricing', 'Blog'];
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -38,6 +40,11 @@ const NavbarMUI = ({user}) => {
         setAnchorElUser(null);
     };
 
+    const handleLogout = () => {
+      localStorage.clear();
+      navigate('/');
+    }
+
   return (
     <ThemeProvider theme={theme}>
         <AppBar position="static">
@@ -54,7 +61,7 @@ const NavbarMUI = ({user}) => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/studentProfile"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -97,7 +104,7 @@ const NavbarMUI = ({user}) => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              <MenuItem onClick={handleCloseNavMenu}>
+              <MenuItem onClick={handleCloseNavMenu} href='/studentProfile'>
                 <Typography textAlign="center">Home</Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu} href='/studentSubmission'>
@@ -118,7 +125,7 @@ const NavbarMUI = ({user}) => {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/studentProfile"
             sx={{
               mr: 1,
               display: { xs: 'flex', md: 'none' },
@@ -136,6 +143,7 @@ const NavbarMUI = ({user}) => {
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
+                href='/studentProfile'
               >
                 Home
               </Button>
@@ -177,10 +185,10 @@ const NavbarMUI = ({user}) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem onClick={handleCloseUserMenu} href='/studentProfile'>
                   <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem onClick={handleLogout}>
                   <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
             </Menu>

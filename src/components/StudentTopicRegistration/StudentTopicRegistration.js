@@ -5,6 +5,8 @@ import theme from '../theme/Theme'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import NavbarMUI from '../NabarMUI/NavbarMUI';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const StudentTopicRegistration = () => {
 
@@ -25,6 +27,11 @@ const StudentTopicRegistration = () => {
             console.log(topic);
             const res = await axios.post(URL+'/studentGroups/addTopic/'+currentStudent.group, {topic: topic});
             console.log(res);
+            if(res.status >= 200 && res.status < 400){
+                toast.success("Topic Submitted Successfully");
+                setTimeout(() => {
+                  window.location = '/studentProfile'
+                }, 2000)}
         } catch (error) {
             console.log(error);
         }
@@ -32,7 +39,8 @@ const StudentTopicRegistration = () => {
 
   return (
     <ThemeProvider theme={theme}>
-        <NavbarMUI />
+        <NavbarMUI user={currentStudent}/>
+        <ToastContainer position='top-center' />
         <div className="container">
             <Card color='primary' variant='outlined' className='bg-light mt-3'>
                 <CardContent>

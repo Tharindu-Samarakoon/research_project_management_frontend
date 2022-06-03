@@ -9,6 +9,7 @@ import ViewSupervisors from './components/ViewSupervisors/ViewSupervisors'
 import StudentGroupConf from './components/StudentGroupConf/StudentGroupConf' 
 import StudentTopicRegistration from './components/StudentTopicRegistration/StudentTopicRegistration'
 import StudentViewSubmission from './components/ViewSubmissions/StudentViewSubmission'
+import StudentAddSubmission from './components/StudentAddSubmission/StudentAddSubmission'
 
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
       <Route exact path='/SelectSupervisor' element={<ViewSupervisors/> } />
       <Route exact path='/studentTopicReg' element={ <StudentTopicRegistration/> } />
       <Route exact path='/studentSubmission' element={ <StudentViewSubmission /> } />
+      <Route exact path='/studentAddSubmission' element={ <StudentAddSubmission /> } />
     </Routes>
   )
 }

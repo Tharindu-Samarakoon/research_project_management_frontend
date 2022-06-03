@@ -1,4 +1,4 @@
-import { Avatar, Card, Container, Divider, Grid, ListItem, Paper, Typography, List, ListItemAvatar, ThemeProvider, Button  } from '@mui/material'
+import { Avatar, Card, Container, Divider, Grid, ListItem, Paper, Typography, List, ListItemAvatar, ThemeProvider, Button, Alert  } from '@mui/material'
 import profile from '../../images/profile.jpg';
 import { bgcolor, Box } from '@mui/system'
 import EmailIcon from '@mui/icons-material/Email'
@@ -6,7 +6,7 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import GroupIcon from '@mui/icons-material/Group';
 import ScienceIcon from '@mui/icons-material/Science';
 import DeleteIcon from '@mui/icons-material/Delete'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../Navbar/Navbar'
 
 import useStyles from './styles';
@@ -16,10 +16,15 @@ import theme from '../theme/Theme';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import NavbarMUI from '../NabarMUI/NavbarMUI';
+import { URL } from '../../constants/url';
 
 const StudentProfile = () => {
     const classes = useStyles();
     const navigate = useNavigate();
+
+    const [group, setGroup] = useState({
+        leader: ''
+    });
 
     const student = localStorage.getItem('student');
     console.log(JSON.parse(student));
@@ -27,16 +32,33 @@ const StudentProfile = () => {
     if(!student) {
         console.log('hello');
         window.location = '/'
-    } 
+    }
 
     const currentStudent = JSON.parse(student).user;
 
+    axios.defaults.headers.common["auth-token"] = JSON.parse(student).data;
+
     const handleUpdate = () => {
-        localStorage.clear();
-        navigate('/');
+        navigate('/StudentRegistration');
     }
 
-    console.log(currentStudent);
+    const getGroup = async () => {
+        try {
+            console.log('Hello World');
+            const res = await axios.get(URL +  '/studentGroups/group/' + currentStudent.group);
+            setGroup(res.data);
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getGroup();
+        console.log('Inside useEffect');
+    }, []);
+
+    console.log(group);
 
 
   return (
@@ -95,11 +117,12 @@ const StudentProfile = () => {
                 </div>
                 <div className="row">
                     <Typography component='div' variant='subtitle1' gutterBottom><b>Contact Number :</b> {currentStudent.contactNum}</Typography>
+                    <Typography component='div' variant='subtitle1' gutterBottom><b>Research Topic :</b> {group.topic}</Typography>
                 </div>
                 <Divider variant='middle' color='primary' />
                 <div className="row">
                     <Typography component='div' variant='subtitle1' gutterBottom><b>Registration No :</b> {currentStudent.regNumber}</Typography>
-                    <Typography component='div' variant='subtitle1' gutterBottom><b>Group :</b> {currentStudent.group || 'Not Assigned'}</Typography>
+                    <Typography component='div' variant='subtitle1' gutterBottom><b>Group :</b> IT20_{currentStudent.group || 'Not Assigned'}</Typography>
                 </div>
             </div>
             <div className="col-sm-12 d-flex justify-content-end gy-2">
@@ -124,7 +147,23 @@ const StudentProfile = () => {
                         </ListItem>
                     </List>
                 </div>  
-            <div className="col-sm-12 col-md-6 mt-5 bg-light p-1">{currentStudent.group ? <GroupDetails group={currentStudent.group} leader={currentStudent.email} /> : ""}</div>
+            <div className="col-sm-12 col-md-6 mt-5 bg-light p-1">{currentStudent.group ? <GroupDetails group={currentStudent.group} leader={group.leader}  /> : ""}</div>
+        </div>
+        <div className="row mt-3 g-2">
+            <div className="col">
+                {group&&group.topicStatus === 'denied' ?
+                    <Alert severity="error">The Submitted topic : {group.topic} was declined by {group.supervisor}</Alert>
+                : '' }
+                {group&&group.topicStatus === 'coDenied' ?
+                    <Alert severity="error">The Submitted topic : {group.topic} was declined by {group.coSupervisor}</Alert>
+                : '' }
+                {group&&group.topicStatus === 'accepted' ?
+                    <Alert severity="success">The Submitted topic : {group.topic} was accepted by {group.supervisor}</Alert>
+                : '' }
+                {group&&group.topicStatus === 'finished' ?
+                    <Alert severity="success">The Submitted topic : {group.topic} was accepted by {group.coSupervisor}</Alert>
+                : '' }                
+            </div>
         </div>
     </div>
     </ThemeProvider>

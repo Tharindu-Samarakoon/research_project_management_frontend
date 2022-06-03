@@ -7,6 +7,9 @@ import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import './styles.css'
 import axios from 'axios';
 import { URL } from '../../constants/url';
+import NavbarMUI from '../NabarMUI/NavbarMUI';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -72,6 +75,12 @@ const StudentGroupConf = () => {
             currentStudent1.user.group = res.data._id;
             student = JSON.stringify(currentStudent1);
             localStorage.setItem('student', student);
+            if(res.status >= 200 && res.status < 400){
+                toast.success("Group Created Successfully");
+                setTimeout(() => {
+                  window.location = '/studentProfile'
+                }, 2000)
+              }
             
         } catch (error) {
             console.log(error);
@@ -82,6 +91,7 @@ const StudentGroupConf = () => {
   return (
     <ThemeProvider theme={theme}>
         <NavbarMUI />
+        <ToastContainer position='top-center' />
         <div className="container groupContainer mt-4">
             <div className="row bg-light d-flex justify-content-center mt-3 p-3 rounded-2">
                 <form action="" className='row gy-4' onSubmit={handleVerify}>
@@ -117,7 +127,7 @@ const StudentGroupConf = () => {
                             </TableHead>
                             <TableBody>
                                 <TableRow>
-                                    <StyledTableCell><Avatar/></StyledTableCell>
+                                    <StyledTableCell><Avatar src={currentStudent.profilePicture} /></StyledTableCell>
                                     <TableCell>{currentStudent.firstName + ' ' + currentStudent.lastName}</TableCell>
                                     <TableCell>{currentStudent.email}</TableCell>
                                     <TableCell>{currentStudent.group? 'Not Available' : 'Available'}</TableCell>
@@ -126,7 +136,7 @@ const StudentGroupConf = () => {
                                     console.log(student);
                                     return(
                                     <TableRow key={i}>
-                                        <StyledTableCell><Avatar/></StyledTableCell>
+                                        <StyledTableCell><Avatar src={student.profilePicture} /></StyledTableCell>
                                         <TableCell>{student.firstName + ' ' + student.lastName}</TableCell>
                                         <TableCell>{student.email}</TableCell>
                                         <TableCell>{student.group? <span color='red'>'Not Available'</span> : 'Available'}</TableCell>

@@ -45,6 +45,8 @@ const GroupDetails = ({group, leader}) => {
       }
 
       console.log(students);
+      console.log(group);
+      console.log(leader);
 
   return (
     <div>

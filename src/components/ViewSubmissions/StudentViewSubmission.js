@@ -5,6 +5,7 @@ import theme from '../theme/Theme'
 import Base64Downloader from 'common-base64-downloader-react';
 import axios from 'axios';
 import { URL } from '../../constants/url';
+import { Link } from 'react-router-dom';
 
 const StudentViewSubmission = () => {
 
@@ -60,21 +61,23 @@ const StudentViewSubmission = () => {
                             {submissions.map(
                                 (sub) => {
                                     return(
-                                        <tr key={sub._id}>
-                                        <th scope="row">{sub.submissionType}</th>
-                                        <td>{sub.description}</td>
-                                        <td>{sub.deadline}</td>
-                                        <td>
-                                            <Base64Downloader base64={sub.template} downloadName="pdfDownload">
-                                                Something.pdf
-                                            </Base64Downloader>
-                                        </td>
-                                        <td>
-                                            <Base64Downloader base64={sub.markingScheme} downloadName="pdfDownload">
-                                                Something.pdf
-                                            </Base64Downloader>
-                                        </td>
-                                    </tr>
+                                        
+                                            <tr key={sub._id}>
+                                            <th scope="row"><Link to='/studentAddSubmission' state={{ submission: sub, user: currentStudent }} >{sub.submissionType}</Link></th>
+                                            <td>{sub.description}</td>
+                                            <td>{sub.deadline}</td>
+                                            <td>
+                                                <Base64Downloader base64={sub.template} downloadName="pdfDownload">
+                                                    Something.pdf
+                                                </Base64Downloader>
+                                            </td>
+                                            <td>
+                                                <Base64Downloader base64={sub.markingScheme} downloadName="pdfDownload">
+                                                    Something.pdf
+                                                </Base64Downloader>
+                                            </td>
+                                            </tr>
+                                        
                                     )
                                 }
                             )}

@@ -19,13 +19,15 @@ import { VisibilityOff } from '@material-ui/icons';
 import { useDispatch } from 'react-redux'
 import FileBase from "react-file-base64";
 
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 import useStyles from './styles'
 import { studentRegistration } from '../../actions/auth';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import axios from 'axios';
+import { URL } from '../../constants/url';
 
 const theme = createTheme({
     palette: {
@@ -40,7 +42,14 @@ const theme = createTheme({
 
 const StudentRegistration = () => {
 
+  const student = localStorage.getItem('student');
+    console.log(JSON.parse(student));
+
+  let currentStudent;
+
   const classes = useStyles();
+  const location = useLocation();
+  const [type, setType] = React.useState(true);
 
  // const dispatch = useDispatch();
   const [error, setErrorText] = React.useState();
@@ -51,6 +60,20 @@ const StudentRegistration = () => {
   const dispatch = useDispatch();
   const history = useNavigate();
 
+  // if(student) {
+  //   console.log('hello');
+  //   currentStudent = JSON.parse(student).user;
+  //   setStudentDetails(currentStudent);
+  //   type = true;
+  // }
+
+  React.useEffect(() => {
+      if(student) {
+      console.log('hello');
+      currentStudent = JSON.parse(student).user;
+      setStudentDetails(currentStudent);
+      setType(false);
+  }}, student);
 
   const comparePassword = (event) => {
     if (studentDetails.password !== confPassword){
@@ -66,12 +89,22 @@ const StudentRegistration = () => {
     setShowPassword(!showPassword)
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if(comparePassword()) {
       console.log(studentDetails);
       const result = dispatch(studentRegistration(studentDetails, history));
       console.log(result);
+    } else if (!type) {
+      console.log('Updating Profile');
+      console.log(studentDetails);
+      currentStudent = JSON.parse(student).user;
+      const result = await axios.patch(URL+'/student/update/'+currentStudent._id, studentDetails);
+      console.log(result);
+      let updateduser = JSON.parse(student);
+      updateduser.user = result.data;
+      localStorage.setItem('student', JSON.stringify(updateduser));
+      history('/studentProfile');
     }
 
     
@@ -101,7 +134,7 @@ const StudentRegistration = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            {type? 'Sign Up' : 'Update Profile'}
           </Typography>
           <form component="form" onSubmit={handleSubmit} style={{ marginTop: 10 }}>
             <Grid container spacing={2}>
@@ -111,29 +144,40 @@ const StudentRegistration = () => {
               <Grid item xs={12} sm={6}>
                 <TextField required fullWidth id="lastName" label="Last Name" name="lastName" value={studentDetails.lastName} autoComplete="family-name" onChange={(e) => setStudentDetails({ ...studentDetails, lastName: e.target.value })} />
               </Grid>
+              {type? 
+                <Grid item xs={12} md={6} >
+                <TextField required fullWidth name="regNumber" value={studentDetails.regNumber} inputProps={{ }} label="Registration Number" id="regNumber" autoComplete="reg-Number" onChange={(e) => setStudentDetails({ ...studentDetails, regNumber: e.target.value })} />
+                </Grid>
+              :
+              ''}
               <Grid item xs={12} md={6} >
-                <TextField required fullWidth name="regNumber" value={studentDetails.regNumber} inputProps={{ maxLenth: 10}} label="Registration Number" id="regNumber" autoComplete="reg-Number" onChange={(e) => setStudentDetails({ ...studentDetails, regNumber: e.target.value })} />
+                <TextField required fullWidth name="contactNum" value={studentDetails.contactNum} inputProps={{}} label="Contact Number" id="contactNum" autoComplete="contact-Number" onChange={(e) => setStudentDetails({ ...studentDetails, contactNum: e.target.value })} />
               </Grid>
-              <Grid item xs={12} md={6} >
-                <TextField required fullWidth name="contactNum" value={studentDetails.contactNum} inputProps={{ maxLenth: 10}} label="Contact Number" id="contactNum" autoComplete="contact-Number" onChange={(e) => setStudentDetails({ ...studentDetails, contactNum: e.target.value })} />
-              </Grid>
-              <Grid item xs={12} >
-                <TextField required fullWidth id="email" value={studentDetails.email} label="Student Email Address" name="email" autoComplete="email" onChange={(e) => setStudentDetails({ ...studentDetails, email: e.target.value }) } />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField required fullWidth name="password" label="Password" value={studentDetails.password} type={showPassword ? 'text' : 'password'} id="password" autoComplete="new-password" onChange={(e) => setStudentDetails({ ...studentDetails, password: e.target.value })} InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton onClick={handleShowPassword} >
-                        {showPassword ? <Visibility /> :  <VisibilityOff /> }
-                      </IconButton>
-                    </InputAdornment>
-                  )
-                }} />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField required fullWidth name="confpassword" value={confPassword} label="Confirm Password" type="password" id="confpassword" autoComplete="new-password" onChange={(e) => {setConfPassword(e.target.value)}} helperText={error} error={!!error} />
-              </Grid>
+              
+                {type? 
+                        <>
+                        <Grid item xs={12} >
+                        <TextField required fullWidth id="email" value={studentDetails.email} label="Student Email Address" name="email" autoComplete="email" onChange={(e) => setStudentDetails({ ...studentDetails, email: e.target.value }) } />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TextField required fullWidth name="password" label="Password" value={studentDetails.password} type={showPassword ? 'text' : 'password'} id="password" autoComplete="new-password" onChange={(e) => setStudentDetails({ ...studentDetails, password: e.target.value })} InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <IconButton onClick={handleShowPassword} >
+                                  {showPassword ? <Visibility /> :  <VisibilityOff /> }
+                                </IconButton>
+                              </InputAdornment>
+                            )
+                          }} />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TextField required fullWidth name="confpassword" value={confPassword} label="Confirm Password" type="password" id="confpassword" autoComplete="new-password" onChange={(e) => {setConfPassword(e.target.value)}} helperText={error} error={!!error} />
+                        </Grid>
+                        </>
+                            :
+                            <Grid item xs={12} >
+                        <TextField disabled required fullWidth id="email" value={studentDetails.email} label="Student Email Address" name="email" autoComplete="email" onChange={(e) => setStudentDetails({ ...studentDetails, email: e.target.value }) } />
+                        </Grid> }
               <Grid item xs={12}>
               <Button
                 variant="contained"
@@ -151,7 +195,7 @@ const StudentRegistration = () => {
             </Grid>
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2}}
             >
-              Sign Up
+              {type? 'Sign up' : 'Update Details'}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

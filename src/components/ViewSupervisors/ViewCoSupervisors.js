@@ -114,4 +114,4 @@ const ViewSupervisors = () => {
   )
 }
 
-export default ViewSupervisors
+export default ViewCoSupervisors
