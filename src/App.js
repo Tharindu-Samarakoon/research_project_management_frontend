@@ -8,11 +8,17 @@ import { Route, Routes } from 'react-router-dom'
 import ViewSupervisors from './components/ViewSupervisors/ViewSupervisors'
 import StudentGroupConf from './components/StudentGroupConf/StudentGroupConf' 
 import StudentTopicRegistration from './components/StudentTopicRegistration/StudentTopicRegistration'
+import MarkingSchemeList from './components/PanelMember/MarkingSchemeList'
+import TopicView from './components/PanelMember/TopicView' 
+import PanelMemberUI from './components/PanelMember/PanelMemberUI' 
 
 
 const App = () => {
   return (
     <Routes>
+      <Route exact path='/' element={<PanelMemberUI />} />
+      <Route exact path='/' element={<TopicView />} />
+      <Route exact path='/' element={<MarkingSchemeList />} />
       <Route exact path='/' element={<Authentication />} />
       <Route exact path='/StudentRegistration' element={<StudentRegistration />} />
       <Route exact path='/studentProfile' element={ <StudentProfile /> } />
