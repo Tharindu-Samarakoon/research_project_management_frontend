@@ -18,6 +18,11 @@ import { Visibility } from '@mui/icons-material';
 import { VisibilityOff } from '@material-ui/icons';
 // import { useDispatch } from 'react-redux'
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+
+import Select from '@mui/material/Select';
+
 const theme = createTheme({
     palette: {
       primary: {
@@ -33,7 +38,7 @@ const StaffRegistration = () => {
 
  // const dispatch = useDispatch();
   const [error, setErrorText] = React.useState();
-  const [staffDetails, setStaffDetails] = React.useState({firstName:'', lastName:'', profilePicture:'', position:'', email:'', password:'', department:'', research_interest:''});
+  const [staffDetails, setStaffDetails] = React.useState({firstName:'', lastName:'', profilePicture:'', email:'', password:'', department:'',role:'', research_interest:''});
   const [confPassword, setConfPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false)
   const [isValid, setIsValid] = React.useState(false);
@@ -94,7 +99,7 @@ const StaffRegistration = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+             Staff Sign up
           </Typography>
           <form component="form" onSubmit={handleSubmit} style={{ marginTop: 10 }}>
             <Grid container spacing={2}>
@@ -104,11 +109,35 @@ const StaffRegistration = () => {
               <Grid item xs={12} sm={6}>
                 <TextField required fullWidth id="lastName" label="Last Name" name="lastName" value={staffDetails.lastName} autoComplete="family-name" onChange={(e) => setStaffDetails({ ...staffDetails, lastName: e.target.value })} />
               </Grid>
+             
               <Grid item xs={12}>
-                <TextField required fullWidth name="department" value={staffDetails.department} label="Department" id="department" autoComplete="department" onChange={(e) => setStaffDetails({ ...staffDetails, department: e.target.value })} />
+              <InputLabel id="demo-simple-select-label">Department</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="department"
+          value={staffDetails.department}
+          label="department"
+          onChange={(e) => setStaffDetails({ ...staffDetails, department: e.target.value })}
+        >
+          <MenuItem value={"DSECS"}>Software Engineering and Computer Science</MenuItem>
+          <MenuItem value={"CSNE"}>Computer Systems and Network Engineering</MenuItem>
+          <MenuItem value={"DS"}>Data Science</MenuItem>
+          <MenuItem value={"IT"}>'Information Technology</MenuItem>
+        </Select>
               </Grid>
               <Grid item xs={12}>
-                <TextField required fullWidth name="position" value={staffDetails.position} label="Position" id="position" autoComplete="position" onChange={(e) => setStaffDetails({ ...staffDetails, position: e.target.value })} />
+              <InputLabel id="demo-simple-select-label">Role</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="role"
+          value={staffDetails.role}
+          label="role"
+          onChange={(e) => setStaffDetails({ ...staffDetails, role: e.target.value })}
+        >
+          <MenuItem value={"Supervisor"}>Supervisor</MenuItem>
+          <MenuItem value={"CoSupervisor"}>Co-Supervisor</MenuItem>
+          <MenuItem value={"panelMember"}>Panel Member</MenuItem>
+        </Select>
               </Grid>
               <Grid item xs={12}>
                 <TextField required fullWidth name="research_interest" value={staffDetails.research_interest} label="Research Interest" id="research_interest" autoComplete="research_interest" onChange={(e) => setStaffDetails({ ...staffDetails, research_interest: e.target.value })} />

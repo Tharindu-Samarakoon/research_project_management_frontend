@@ -1,4 +1,4 @@
-import React from'react';
+import React, { useEffect, useState } from'react';
 import {Card,Grid} from '@mui/material'
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,7 +7,29 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
+import { URL } from '../../constants/url';
+import GroupItem from './GroupItem';
 const SubmittedGroupList=()=>{
+  
+
+
+  const [groups, setGroups] = useState([]);
+
+  useEffect(() => {
+    getGroups();
+  }, []);
+
+  const getGroups = async () => {
+    try {
+      const groupList = await axios.get(URL+"/studentGroups/getGroups");
+      setGroups(groupList.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(groups);
 
     const useStyles = makeStyles({
         root: {
@@ -18,11 +40,12 @@ const SubmittedGroupList=()=>{
         },
       });
 
+
     const classes = useStyles();
     return<div>
         <Grid container spacing={3}>
             <Grid item xs={3}>
-            <Card className={classes.root}>
+            {/* <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -41,12 +64,20 @@ const SubmittedGroupList=()=>{
       <CardActions>
         <Button size="small"></Button>
       </CardActions>
+
       
-    </Card>
+      
+    </Card> */}
+    {groups.map((group) => {
+                return <GroupItem group={group}  classes={classes}/>;
+              })}
     
             </Grid>
       </Grid>
+      
   </div>;
+
+
 };
 export default SubmittedGroupList ;
 

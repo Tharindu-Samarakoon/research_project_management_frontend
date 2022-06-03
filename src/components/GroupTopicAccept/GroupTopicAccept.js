@@ -20,6 +20,7 @@ import { VisibilityOff } from '@material-ui/icons';
 // import { useDispatch } from 'react-redux'
 
 import useStyles from './styles'
+import { URL } from '../../constants/url';
 
 const theme = createTheme({
     palette: {
@@ -34,42 +35,28 @@ const theme = createTheme({
 
 const GroupTopicAccept = () => {
 
+  const [group, setGroup] = useState([]);
+
+  useEffect(() => {
+    getGroup();
+  }, []);
+
+
   const classes = useStyles();
 
- // const dispatch = useDispatch();
-  const [error, setErrorText] = React.useState();
-  const [studentDetails, setStudentDetails] = React.useState({firstName: '', lastName: '', regNumber: '', studentEmail: '', password: '' });
-  const [confPassword, setConfPassword] = React.useState('');
-  const [showPassword, setShowPassword] = React.useState(false)
-  const [isValid, setIsValid] = React.useState(false);
+  const getGroup = async () => {
+    try {
+      
+      const group = await axios.get(URL+"/studentGroups/getGroup/_id");
+      setGroup(group.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+    
 
   
-
-  const comparePassword = (event) => {
-    if (studentDetails.password !== confPassword){
-        setErrorText('Password do not match');
-        return false;
-    } else {
-        setErrorText('');
-        return true;
-    }
-  }
-
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword)
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if(comparePassword()) {
-      console.log(studentDetails);
-    }
-
-    
-
-    
-
-  };
 
 
   return (
@@ -95,54 +82,40 @@ const GroupTopicAccept = () => {
            Topic Accepting
           </Typography>
           <form component="form" onSubmit={handleSubmit} style={{ marginTop: 10 }}>
-            <Grid container spacing={2}>
+       
+            
+                 <td>{group.topic}</td>
+                    <td>{group.supervisor}</td>
+                  <td>{group.leader}</td>
               
-              <Grid item xs={12}>
-                <TextField required fullWidth name="regNumber" value={studentDetails.regNumber} label="Registration Number" id="regNumber" autoComplete="reg-Number" onChange={(e) => setStudentDetails({ ...studentDetails, regNumber: e.target.value })} />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField required fullWidth id="email" value={studentDetails.studentEmail} label="Student Email Address" name="email" autoComplete="email" onChange={(e) => setStudentDetails({ ...studentDetails, studentEmail: e.target.value }) } />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField required fullWidth name="password" label="Password" value={studentDetails.password} type={showPassword ? 'text' : 'password'} id="password" autoComplete="new-password" onChange={(e) => setStudentDetails({ ...studentDetails, password: e.target.value })} InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton onClick={handleShowPassword} >
-                        {showPassword ? <Visibility /> :  <VisibilityOff /> }
-                      </IconButton>
-                    </InputAdornment>
-                  )
-                }} />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField required fullWidth name="confpassword" value={confPassword} label="Confirm Password" type="password" id="confpassword" autoComplete="new-password" onChange={(e) => {setConfPassword(e.target.value)}} helperText={error} error={!!error} />
-              </Grid>
-            </Grid>
+            
+        
+              
             <br>
             </br>
 
-            <Grid container spacing={2}> 
+            
 
             <Button type="submit" fullWidth variant="contained" xs={6} sm={6}
             
             >
               Accept
             </Button>
-            <Button type="submit" fullWidth variant="contained" xs={6} sm={6}
+  
+            <Button type="submit" fullWidth variant="contained"sx={{ mt: 3, mb: 2 }}
             >
               Reject
             </Button>
+  
+              
             <Button href="#" fullWidth variant="contained" sx={{ mt: 3, mb: 2}}
             >
               cancel
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2" >
-                  Already have an account? Sign in
-                </Link>
+               
               </Grid>
-            </Grid>
             </Grid>
           </form>
         </Box>

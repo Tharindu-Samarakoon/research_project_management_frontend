@@ -4,6 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
+import { Link } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Paper from '@mui/material/Paper';
@@ -15,10 +16,12 @@ import logo from '../../images/SLIIT_Logo.png'
 import { bgcolor } from '@mui/system';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { studentLogin } from '../../api';
 import { signIn } from '../../actions/auth';
+import { URL } from '../../constants/url';
+import axios from 'axios';
 
 
 const theme = createTheme({
@@ -42,7 +45,7 @@ const Authentication = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const result = dispatch(signIn({
@@ -51,7 +54,23 @@ const Authentication = () => {
     }, history));
     console.log(result);
 
-  };
+    try{
+      const url = URL+"staff/signup";
+      const {data:res} = await axios.post(url.data);
+      localStorage.setItem("token-staff", res.data);
+      window.location = "/";
+    }
+    catch (error){
+      if(
+        error.response &&
+        error.response.status >=400 &&
+        error.response.status <=500
+      ){
+        setError(error.response.data.message);
+      }
+    }
+
+    };
 
   return (
     <ThemeProvider theme={theme}>
@@ -110,12 +129,12 @@ const Authentication = () => {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link to='/' color='primary' >
+                  <Link href='/' color='primary' >
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link to='/StudentRegistration' color='#061d34' >
+                  <Link href='/StudentRegistration' color='#061d34' >
                     Don't have an account? Sign Up
                   </Link>
                 </Grid>
@@ -126,6 +145,6 @@ const Authentication = () => {
       </Grid>
     </ThemeProvider>
   );
-}
+        };
 
 export default Authentication;
