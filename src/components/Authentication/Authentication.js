@@ -18,7 +18,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { studentLogin } from '../../api';
-import { signIn } from '../../actions/auth';
+import { signIn, staffSignIn } from '../../actions/auth';
 
 
 const theme = createTheme({
@@ -44,12 +44,26 @@ const Authentication = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const result = dispatch(signIn({
-      email: data.get('email'),
-      password: data.get('password'),
-    }, history));
-    console.log(result);
+    try {
+      const data = new FormData(event.currentTarget);
+      if(data.get('email') === 'admin' && data.get('password') == 'adminPassword'){
+        console.log('admin');
+        history('/admin');
+      } else {
+      const result = dispatch(signIn({
+        email: data.get('email'),
+        password: data.get('password'),
+      }, history));
+      console.log(result);
+      console.log('hello');
+      const result2 = dispatch(staffSignIn({
+        email: data.get('email'),
+        password: data.get('password'),
+      }, history));
+      console.log(result);
+    }
+    } catch (error) {
+    }
 
   };
 

@@ -53,6 +53,7 @@ const StudentRegistration = () => {
 
  // const dispatch = useDispatch();
   const [error, setErrorText] = React.useState();
+  const [errors, setErrors] = React.useState({});
   const [studentDetails, setStudentDetails] = React.useState({firstName: '', lastName: '', regNumber: '', email: '', password: '', contactNum: '', profilePicture: '', dob: '' });
   const [confPassword, setConfPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false)
@@ -79,10 +80,24 @@ const StudentRegistration = () => {
     if (studentDetails.password !== confPassword){
         setErrorText('Password do not match');
         return false;
+    } else if (studentDetails.password.length < 8){
+      setErrorText('Please enter a password with more than 8 characters');
+      return false;
     } else {
         setErrorText('');
         return true;
     }
+  }
+
+    const validate = () => {
+    let temp = {}
+    temp.email = (/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/).test(studentDetails.email)?"": "This field is required.";
+    temp.regNumber = studentDetails.regNumber.length == 10?"": "Please provide a valid registration number."
+    temp.contactNum = studentDetails.contactNum.length >= 10?"": "Please provide a 10 digit contact number"
+    setErrors({
+      ...temp
+    });
+    return Object.values(temp).every(x => x == "");
   }
 
   const handleShowPassword = () => {
@@ -91,7 +106,7 @@ const StudentRegistration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(comparePassword()) {
+    if(comparePassword() && validate()) {
       console.log(studentDetails);
       const result = dispatch(studentRegistration(studentDetails, history));
       console.log(result);
@@ -106,6 +121,8 @@ const StudentRegistration = () => {
       localStorage.setItem('student', JSON.stringify(updateduser));
       history('/studentProfile');
     }
+
+    console.log(errors);
 
     
 
@@ -146,18 +163,18 @@ const StudentRegistration = () => {
               </Grid>
               {type? 
                 <Grid item xs={12} md={6} >
-                <TextField required fullWidth name="regNumber" value={studentDetails.regNumber} inputProps={{ }} label="Registration Number" id="regNumber" autoComplete="reg-Number" onChange={(e) => setStudentDetails({ ...studentDetails, regNumber: e.target.value })} />
+                <TextField required fullWidth error={errors.regNumber} helperText={errors.regNumber} name="regNumber" value={studentDetails.regNumber} inputProps={{ }} label="Registration Number" id="regNumber" autoComplete="reg-Number" onChange={(e) => setStudentDetails({ ...studentDetails, regNumber: e.target.value })} />
                 </Grid>
               :
               ''}
               <Grid item xs={12} md={6} >
-                <TextField required fullWidth name="contactNum" value={studentDetails.contactNum} inputProps={{}} label="Contact Number" id="contactNum" autoComplete="contact-Number" onChange={(e) => setStudentDetails({ ...studentDetails, contactNum: e.target.value })} />
+                <TextField required fullWidth error={errors.contactNum} helperText={errors.contactNum} name="contactNum" value={studentDetails.contactNum} inputProps={{}} label="Contact Number" id="contactNum" autoComplete="contact-Number" onChange={(e) => setStudentDetails({ ...studentDetails, contactNum: e.target.value })} />
               </Grid>
               
                 {type? 
                         <>
                         <Grid item xs={12} >
-                        <TextField required fullWidth id="email" value={studentDetails.email} label="Student Email Address" name="email" autoComplete="email" onChange={(e) => setStudentDetails({ ...studentDetails, email: e.target.value }) } />
+                        <TextField required fullWidth id="email" error={errors.email} helperText={errors.email} value={studentDetails.email} label="Student Email Address" name="email" autoComplete="email" onChange={(e) => setStudentDetails({ ...studentDetails, email: e.target.value }) } />
                         </Grid>
                         <Grid item xs={12}>
                           <TextField required fullWidth name="password" label="Password" value={studentDetails.password} type={showPassword ? 'text' : 'password'} id="password" autoComplete="new-password" onChange={(e) => setStudentDetails({ ...studentDetails, password: e.target.value })} InputProps={{

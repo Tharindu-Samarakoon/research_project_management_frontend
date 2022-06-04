@@ -21,6 +21,10 @@ const StudentAddSubmission = () => {
     //obtaining the state props passed through Link tag
     const { user, submission } = location.state;
 
+    const handleSubmit = () => {
+        
+    }
+
     console.log(user);
     console.log(submission);
   return (
@@ -48,6 +52,9 @@ const StudentAddSubmission = () => {
                         // onDone={({ base64 }) => setStudentDetails({ ...studentDetails, profilePicture: base64 })}
                         ></FileBase>
                     </Button>
+                </div>
+                <div className="col-12 d-flex justify-content-end mt-2 p-2">
+                    <Button variant='contained' onClick={handleSubmit} >Submit</Button>
                 </div>
             </div>
         </div>

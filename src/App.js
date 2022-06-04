@@ -10,6 +10,7 @@ import StudentGroupConf from './components/StudentGroupConf/StudentGroupConf'
 import StudentTopicRegistration from './components/StudentTopicRegistration/StudentTopicRegistration'
 import StudentViewSubmission from './components/ViewSubmissions/StudentViewSubmission'
 import StudentAddSubmission from './components/StudentAddSubmission/StudentAddSubmission'
+import ViewCoSupervisors from './components/ViewSupervisors/ViewCoSupervisors'
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
       <Route exact path='/studentProfile' element={ <StudentProfile /> } />
       <Route exact path='/studentGroupReg' element={ <StudentGroupConf /> } />
       <Route exact path='/SelectSupervisor' element={<ViewSupervisors/> } />
+      <Route exact path='/SelectCoSupervisor' element={<ViewCoSupervisors/> } />
       <Route exact path='/studentTopicReg' element={ <StudentTopicRegistration/> } />
       <Route exact path='/studentSubmission' element={ <StudentViewSubmission /> } />
       <Route exact path='/studentAddSubmission' element={ <StudentAddSubmission /> } />

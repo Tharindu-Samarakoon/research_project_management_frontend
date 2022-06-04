@@ -122,7 +122,7 @@ const StudentProfile = () => {
                 <Divider variant='middle' color='primary' />
                 <div className="row">
                     <Typography component='div' variant='subtitle1' gutterBottom><b>Registration No :</b> {currentStudent.regNumber}</Typography>
-                    <Typography component='div' variant='subtitle1' gutterBottom><b>Group :</b> IT20_{currentStudent.group || 'Not Assigned'}</Typography>
+                    <Typography component='div' variant='subtitle1' gutterBottom><b>Group :</b> {currentStudent.group? 'IT20_'+currentStudent.group : 'Not Assigned'}</Typography>
                 </div>
             </div>
             <div className="col-sm-12 d-flex justify-content-end gy-2">
@@ -159,6 +159,12 @@ const StudentProfile = () => {
                 : '' }
                 {group&&group.topicStatus === 'accepted' ?
                     <Alert severity="success">The Submitted topic : {group.topic} was accepted by {group.supervisor}</Alert>
+                : '' }
+                                {group&&group.topicStatus === 'submitted' ?
+                    <Alert severity="warning">The Submitted topic : {group.topic} was submitted to {group.supervisor}</Alert>
+                : '' }
+                                {group&&group.topicStatus === 'coSupervisor' ?
+                    <Alert severity="warning">The Submitted topic : {group.topic} was submitted to {group.supervisor}</Alert>
                 : '' }
                 {group&&group.topicStatus === 'finished' ?
                     <Alert severity="success">The Submitted topic : {group.topic} was accepted by {group.coSupervisor}</Alert>

@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider, TextField, Typography } from '@mui/material'
+import { Avatar, Button, Divider, Link, TextField, Typography } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import { MenuItem } from '@mui/material'
 import React, { useEffect, useState } from 'react'
@@ -24,25 +24,27 @@ const ViewSupervisors = () => {
 
   const departments = [
     {
-      value: 'DSECS',
+      value: 'Software Engineering and Computer Science',
       label: 'Software Engineering and Computer Science'
     },
     {
-      value: 'CSNE',
+      value: 'Computer Systems and Network Engineering',
       label: 'Computer Systems and Network Engineering'
     },
     {
-      value: 'DS',
+      value: 'Data Science',
       label: 'Data Science'
     },
     {
-      value: 'IT',
+      value: 'Information Technology',
       label: 'Information Technology'
     },
   ]
 
   const [type, setType] = useState(true);
-
+  const [filterName, setFilterName] = useState('');
+  const [filterDepartment, setFilterDepartment] = useState('');
+  const [filterResearch, setFilterResearch] = useState('');
   const [supervisor, setSupervisors] = useState([]);
   const [group, setGroup] = useState({})
   const [noGroupError, setNoGroupError] = useState('');
@@ -56,12 +58,19 @@ const ViewSupervisors = () => {
       console.log(res);
       if(res.data.supervisor){
         setType(false);
+        setNoGroupError('You have already selected a supervisor');
       } else {
         setType(true);
       }
     } else {
       setNoGroupError('Please form a group to select a supervisor');
     }
+  }
+
+  const clearFilters = () => {
+    setFilterDepartment('');
+    setFilterName('');
+    setFilterResearch('');
   }
 
   useEffect(() => {
@@ -76,18 +85,18 @@ const ViewSupervisors = () => {
       <NavbarMUI user={currentStudent.user}/>
     <div className='main-list mt-4'>
         <div className="container mt-2">
-          <Typography variant='h4' component='div' gutterBottom >Supervisors</Typography>
+          <Typography variant='h4' component='div' gutterBottom ><u>Supervisors/</u><Link href='/SelectCoSupervisor' style={{textDecoration: "none"}}>Co-Supervisor</Link> </Typography>
           <Divider />
           <div className="bg-light p-2 rounded-top">
             <div className="row">
                 <div className="col-sm-12 col-md-6 col-lg-4">
-                  <TextField label="Name" variant='outlined' margin='normal' value='' fullWidth/> 
+                  <TextField label="Name" variant='outlined' margin='normal' value={filterName} onChange={(e) => setFilterName(e.target.value)} fullWidth/> 
                 </div>
                 <div className="col-sm-12 col-md-6 col-lg-4">
-                  <TextField label="Research Area" variant='outlined' margin='normal' fullWidth /> 
+                  <TextField label="Research Area" variant='outlined' margin='normal' value={filterResearch} onChange={(e) => setFilterResearch(e.target.value)} fullWidth /> 
                 </div>
                 <div className="col-sm-12 col-md-6 col-lg-4">
-                  <TextField label="Department" variant='outlined' margin='normal' select fullWidth>
+                  <TextField label="Department" variant='outlined' margin='normal' onChange={(e) => setFilterDepartment(e.target.value)} select fullWidth>
                     {departments.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
@@ -97,15 +106,22 @@ const ViewSupervisors = () => {
                 </div>
               </div>
             <div className="row">
-                <div className="col align-self-end"><Button variant='outlined'>Clear</Button></div>
+                <div className="col align-self-end"><Button variant='outlined' type='reset' onClick={clearFilters}>Clear</Button></div>
             </div>
             <div className="row">
               {noGroupError? <Typography color='red' variant='subtitle1'>{noGroupError}</Typography> : ''}
             </div>
             </div>
-            {supervisor.map((item) => {
+            {supervisor.filter((val) => {
+              if (filterName == '' && filterResearch == '' && filterDepartment == '') {
+                return val;
+              } else if (val.firstName.toLowerCase().includes(filterName.toLowerCase()) && val.research_interest.toLowerCase().includes(filterResearch.toLowerCase()) && val.department.toLowerCase().includes(filterDepartment.toLowerCase())){
+                return val;
+              }
+            }
+            ).map((item) => {
               return(
-              <SupervisorDetails key={item._id} type={type} user={item} token={currentStudent.data} student={currentStudent.user} />
+              <SupervisorDetails key={item._id} type={type} user={item} token={currentStudent.data} student={currentStudent.user} position='supervisor' />
               )
             })}
         </div>

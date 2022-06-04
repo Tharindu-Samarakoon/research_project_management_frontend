@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider, TextField, Typography } from '@mui/material'
+import { Avatar, Button, Divider, Link, TextField, Typography } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import { MenuItem } from '@mui/material'
 import React, { useEffect, useState } from 'react'
@@ -10,7 +10,7 @@ import axios from 'axios'
 import { URL } from '../../constants/url'
 import NavbarMUI from '../NabarMUI/NavbarMUI'
 
-const ViewSupervisors = () => {
+const ViewCoSupervisors = () => {
 
   const student = localStorage.getItem('student');
 
@@ -54,10 +54,13 @@ const ViewSupervisors = () => {
     if(currentStudent.user.group){
       const res = await axios.get(URL + '/studentGroups/group/' + currentStudent.user.group);
       console.log(res);
-      if(res.data.supervisor){
+      if(res.data.coSupervisor || !res.data.supervisor || res.data.topicStatus == 'submitted'){
         setType(false);
+        setNoGroupError('You have already requested a co-supervisor or please confirm a supervisor');
+        console.log('Setting to false');
       } else {
         setType(true);
+        console.log('setting to true');
       }
     } else {
       setNoGroupError('Please form a group to select a supervisor');
@@ -76,7 +79,7 @@ const ViewSupervisors = () => {
       <NavbarMUI user={currentStudent.user}/>
     <div className='main-list mt-4'>
         <div className="container mt-2">
-          <Typography variant='h4' component='div' gutterBottom >Supervisors</Typography>
+          <Typography variant='h4' component='div' gutterBottom ><Link href='/SelectSupervisor' style={{textDecoration: "none"}}>Supervisors</Link><u>/Co-Supervisors</u></Typography>
           <Divider />
           <div className="bg-light p-2 rounded-top">
             <div className="row">
@@ -105,7 +108,7 @@ const ViewSupervisors = () => {
             </div>
             {supervisor.map((item) => {
               return(
-              <SupervisorDetails key={item._id} type={type} user={item} token={currentStudent.data} student={currentStudent.user} />
+              <SupervisorDetails key={item._id} type={type} user={item} token={currentStudent.data} student={currentStudent.user} position='coSupervisor' />
               )
             })}
         </div>

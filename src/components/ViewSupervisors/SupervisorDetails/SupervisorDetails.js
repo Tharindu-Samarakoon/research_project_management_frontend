@@ -5,20 +5,34 @@ import { toast, ToastContainer } from 'react-toastify';
 import { URL } from '../../../constants/url';
 import 'react-toastify/dist/ReactToastify.css'
 
-const SupervisorDetails = ({type, user, token, student}) => {
+const SupervisorDetails = ({type, user, token, student, position, coType}) => {
+
+  console.log(position);
 
   const handleRequest = async (e) => {
     e.preventDefault();
     try {
       axios.defaults.headers.common["auth-token"] = token;
-      const res = await axios.post(URL+'/studentGroups/requestSupervisor/'+ student.group, {supervisor: user.email});
-      console.log(res);
-      if(res.status = 200){
-        toast.success("Request Sent");
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000)
+      if(position === 'coSupervisor'){
+        const res = await axios.post(URL+'/studentGroups/requestCoSupervisor/'+ student.group, {coSupervisor: user.email});
+        console.log(res);
+        if(res.status = 200){
+          toast.success("Request Sent");
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000)
+        }
+      } else {
+        const res = await axios.post(URL+'/studentGroups/requestSupervisor/'+ student.group, {supervisor: user.email});
+        console.log(res);
+        if(res.status = 200){
+          toast.success("Request Sent");
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000)
+        }
       }
+    
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +54,7 @@ const SupervisorDetails = ({type, user, token, student}) => {
                 <Typography
                  component='div' gutterBottom variant='h5'>Name : {user.firstName + " " + user.lastName}</Typography>
                 <Divider />
-                <Typography component='div' gutterBottom variant='h6'>Department : {user.Department}</Typography>
+                <Typography component='div' gutterBottom variant='h6'>Department : {user.department}</Typography>
                 <Divider />
                 <Typography component='div' gutterBottom variant='h6'>Email Address : {user.email}</Typography>
                 <Divider />

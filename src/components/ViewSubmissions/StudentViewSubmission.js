@@ -67,13 +67,13 @@ const StudentViewSubmission = () => {
                                             <td>{sub.description}</td>
                                             <td>{sub.deadline}</td>
                                             <td>
-                                                <Base64Downloader base64={sub.template} downloadName="pdfDownload">
-                                                    Something.pdf
+                                                <Base64Downloader base64={sub.template} downloadName="pdfDownload" style={{border: '#061d34', borderShadow: 2, padding: 5, borderRadius: 2}}>
+                                                    Download
                                                 </Base64Downloader>
                                             </td>
                                             <td>
-                                                <Base64Downloader base64={sub.markingScheme} downloadName="pdfDownload">
-                                                    Something.pdf
+                                                <Base64Downloader base64={sub.markingScheme} downloadName="pdfDownload" style={{border: '#061d34', borderShadow: 2, padding: 5, borderRadius: 2}} >
+                                                    Download
                                                 </Base64Downloader>
                                             </td>
                                             </tr>
