@@ -34,7 +34,7 @@ export const staffSignIn = (formData, history) => async (dispatch) => {
         console.log(formData);
         const { data } = await api.staffLogin(formData);
         dispatch({ type: 'STAFF_LOGIN', data} );
-        history('/staff');
+        history('/supervisorP');
     } catch (error) {
         console.log(error);
     }

@@ -19,6 +19,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { studentLogin } from '../../api';
 import { signIn, staffSignIn } from '../../actions/auth';
+import { URL } from '../../constants/url';
+import axios from 'axios';
 
 
 const theme = createTheme({
@@ -42,7 +44,7 @@ const Authentication = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const data = new FormData(event.currentTarget);
@@ -65,7 +67,23 @@ const Authentication = () => {
     } catch (error) {
     }
 
-  };
+    try{
+      const url = URL+"staff/signup";
+      const {data:res} = await axios.post(url.data);
+      localStorage.setItem("token-staff", res.data);
+      window.location = "/";
+    }
+    catch (error){
+      if(
+        error.response &&
+        error.response.status >=400 &&
+        error.response.status <=500
+      ){
+        setError(error.response.data.message);
+      }
+    }
+
+    };
 
   return (
     <ThemeProvider theme={theme}>
@@ -140,6 +158,6 @@ const Authentication = () => {
       </Grid>
     </ThemeProvider>
   );
-}
+        };
 
 export default Authentication;
