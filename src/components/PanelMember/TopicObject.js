@@ -26,8 +26,12 @@ const TopicObject = () => {
                 </Typography>
                 <div className="row">
                     <div className="col d-flex justify-content-end">
+                    <table><tr><td>
                        <Button variant='contained' className='button-new'>Reject</Button>
+                       </td><td>
                        <Button variant='contained'>Accept</Button>
+                       </td></tr>
+                       </table>
                     </div>
                 </div>
             </div>

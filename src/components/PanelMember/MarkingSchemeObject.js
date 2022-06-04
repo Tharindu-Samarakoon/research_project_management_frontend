@@ -20,13 +20,19 @@ const MarkingSchemeObject = () => {
                 <Divider />
                 <Typography component='div' gutterBottom variant='h6'>Group : G100</Typography>
                 <Divider />
-                <Typography component='div' variant='subtitle1' gutterBottom>Research Interests : Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                <Typography component='div' variant='subtitle1' gutterBottom>Feedback : Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                   Excepturi molestias, dolor culpa error modi repellat sed, cumque recusandae quas, fugiat praesentium commodi quo nisi.
                   Cum reiciendis recusandae cumque at quis.
                 </Typography>
                 <div className="row">
                     <div className="col d-flex justify-content-end">
+                        <table><tr><td>
+                       <Button variant='contained' className='button-new'>Edit Feedback</Button>
+                       </td>
+                       <td>
                        <Button variant='contained'>Download PDF</Button>
+                       </td></tr>
+                       </table>
                     </div>
                 </div>
             </div>
