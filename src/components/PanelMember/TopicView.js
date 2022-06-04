@@ -18,7 +18,8 @@ const TopicView = () => {
                         <Divider />
 
                             <TopicObject />
-                            
+                            <TopicObject />
+                            <TopicObject />
                         </div>
 
                     </div>

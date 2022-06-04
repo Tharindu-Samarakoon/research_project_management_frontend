@@ -6,7 +6,11 @@ import MarkingSchemeObject from './MarkingSchemeObject'
 
 const MarkingSchemeList = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme = {theme}>
+    <div className="container">
+    <Card color='primary' variant='outlined' className='bg-light mt-3'>
+        <CardContent>
+
         <div className='main-list'>
         <div className="container mt-2">
           <Typography variant='h4' component='div' gutterBottom >Marking Scheme List</Typography>
@@ -15,6 +19,9 @@ const MarkingSchemeList = () => {
             <MarkingSchemeObject />
             <MarkingSchemeObject />
         </div>
+        </div>
+        </CardContent>
+    </Card>
     </div>
     </ThemeProvider>
   )

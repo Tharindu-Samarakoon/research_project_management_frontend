@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea, createTheme, Divider, ThemeProvider } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
-const theme = createTheme({
+const theme2 = createTheme({
   palette: {
     mode: "dark",
     primary: {
@@ -26,7 +26,7 @@ export default function AdminHome() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme2}>
       <div className="container">
       <div className="container mt-2">
       <Divider />
