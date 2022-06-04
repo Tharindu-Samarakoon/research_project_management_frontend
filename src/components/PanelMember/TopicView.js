@@ -16,13 +16,12 @@ const TopicView = () => {
                         <div className="container mt-2">
                         <Typography variant='h4' component='div' gutterBottom >Topic List View</Typography>
                         <Divider />
-
                             <TopicObject />
                             <TopicObject />
                             <TopicObject />
                         </div>
-
                     </div>
+                    
                 </CardContent>
             </Card>
         </div>

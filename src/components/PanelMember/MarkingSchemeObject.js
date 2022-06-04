@@ -3,6 +3,9 @@ import React from 'react'
 import theme from '../theme/Theme'
 import '../PanelMember/styles.css'
 
+
+
+
 const MarkingSchemeObject = () => {
   return (
     <div className="row border border-secondary p-3 m-3 rounded">
@@ -16,9 +19,7 @@ const MarkingSchemeObject = () => {
             </div>
             <div className="col-sm-12 col-md-9 col-lg-10">
                 <Typography
-                 component='div' gutterBottom variant='h5'>Name : Author Morgan</Typography>
-                <Divider />
-                <Typography component='div' gutterBottom variant='h6'>Group : G100</Typography>
+                 component='div' gutterBottom variant='h5'>Assignment Name : Assignment001</Typography>
                 <Divider />
                 <Typography component='div' variant='subtitle1' gutterBottom>Feedback : Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                   Excepturi molestias, dolor culpa error modi repellat sed, cumque recusandae quas, fugiat praesentium commodi quo nisi.
@@ -30,7 +31,7 @@ const MarkingSchemeObject = () => {
                        <Button variant='contained' className='button-new'>Edit Feedback</Button>
                        </td>
                        <td>
-                       <Button variant='contained'>Download PDF</Button>
+                       <Button variant="outlined" color="primary"> Download </Button>
                        </td></tr>
                        </table>
                     </div>

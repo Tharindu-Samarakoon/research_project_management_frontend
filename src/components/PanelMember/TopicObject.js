@@ -27,7 +27,7 @@ const TopicObject = () => {
                 <div className="row">
                     <div className="col d-flex justify-content-end">
                     <table><tr><td>
-                       <Button variant='contained' className='button-new'>Reject</Button>
+                       <Button variant='contained' >Reject</Button>
                        </td><td>
                        <Button variant='contained'>Accept</Button>
                        </td></tr>

@@ -17,13 +17,16 @@ const App = () => {
   return (
     <Routes>
       <Route exact path='/' element={<PanelMemberUI />} />
-    
+     
+      <Route exact path='/MarkingSchemeList' element={<MarkingSchemeList />} />
+
+      <Route exact path='/TopicView' element={<TopicView />} />
+
       <Route exact path='/' element={<Authentication />} />
+      
       <Route exact path='/StudentRegistration' element={<StudentRegistration />} />
       <Route exact path='/studentProfile' element={ <StudentProfile /> } />
       <Route exact path='/studentGroupReg' element={ <StudentGroupConf /> } />
-      <Route exact path='/TopicView' element={<TopicView />} />  
-      <Route exact path='/MarkingSchemeList' element={<MarkingSchemeList />} />
     </Routes>
   )
 }

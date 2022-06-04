@@ -20,6 +20,7 @@ const MarkingSchemeList = () => {
             <MarkingSchemeObject />
         </div>
         </div>
+        
         </CardContent>
     </Card>
     </div>
