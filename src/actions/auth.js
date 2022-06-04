@@ -24,3 +24,16 @@ export const studentRegistration = (formData, history) => async (dispatch) => {
         console.log(error);
     }
 }
+
+export const staffRegistration = (formData, history) => async (dispatch) => {
+    try {
+        //Login staff
+        console.log(formData);
+        const { data } = await api.staffReg(formData);
+        dispatch({ type: 'STAFF_REGISTRATION', data} );
+        history('/group');
+        console.log('hello');
+    } catch (error) {
+        console.log(error);
+    }
+}

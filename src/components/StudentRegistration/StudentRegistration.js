@@ -22,9 +22,9 @@ import {useNavigate} from 'react-router-dom';
 
 import useStyles from './styles'
 import { studentRegistration } from '../../actions/auth';
-import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const theme = createTheme({
     palette: {
@@ -57,7 +57,7 @@ const StudentRegistration = () => {
         return false;
     } else {
         setErrorText('');
-        return true;
+        setIsValid(true);
     }
   }
 
