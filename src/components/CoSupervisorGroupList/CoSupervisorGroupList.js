@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import { URL } from '../../constants/url';
 import GroupItem from './GroupItem';
+import Navbar from '../Navbar/Navbar';
 const CoSupervisorGroupList=()=>{
   
 
@@ -43,6 +44,13 @@ const CoSupervisorGroupList=()=>{
 
     const classes = useStyles();
     return<div>
+
+<Navbar/><br></br><br></br><br></br>
+
+<Typography  >
+         <h2> Co-Supervisor selected Groups</h2> 
+          </Typography>
+
         <Grid container spacing={3}>
             <Grid item xs={3}>
             {/* <Card className={classes.root}>

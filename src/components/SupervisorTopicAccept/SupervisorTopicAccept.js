@@ -40,7 +40,7 @@ const theme = createTheme({
     },
   });
 
-const GroupTopicAccept = () => {
+const SupervisorTopicAccept = () => {
 
 
 
@@ -92,7 +92,7 @@ const GroupTopicAccept = () => {
       console.log(groups)
       const groupList = await axios.post(URL+"/studentGroups/topicD/"+groups._id);
       console.log(groups)
-      window.location = "/group";
+      window.location = "/coSupervisorG";
    
    }
    catch (error){
@@ -110,7 +110,7 @@ const GroupTopicAccept = () => {
      const groupList = await axios.post(URL+"/studentGroups/topicA/"+groups._id);
      toast("Accepted");
       console.log()
-      window.location = "/group";
+      window.location = "/coSupervisorG";
     } catch (error) {
       console.log(error);
     }
@@ -188,7 +188,7 @@ const GroupTopicAccept = () => {
             </Button>
   
               
-            <Button href="/group" fullWidth variant="contained" sx={{ mt: 3, mb: 2}}
+            <Button href="/coSupervisorG" fullWidth variant="contained" sx={{ mt: 3, mb: 2}}
             >
               cancel
             </Button>
@@ -205,4 +205,4 @@ const GroupTopicAccept = () => {
 }
 
 
-export default GroupTopicAccept;
+export default SupervisorTopicAccept;

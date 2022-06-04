@@ -14,6 +14,8 @@ import StudentGroupConf from './components/StudentGroupConf/StudentGroupConf'
 import StudentTopicRegistration from './components/StudentTopicRegistration/StudentTopicRegistration'
 import { Link } from "react-router-dom";
 import CoSupervisorGroupList from './components/CoSupervisorGroupList/CoSupervisorGroupList'
+import SupervisorPanel from './components/SupervisorHome/SupervisorPanel.js'
+import SupervisorTopicAccept from './components/SupervisorTopicAccept/SupervisorTopicAccept'
 
 const App = () => {
   return (
@@ -24,8 +26,11 @@ const App = () => {
       <Route path='/group' element={<Submit/>}/>
       <Route path='/coSupervisorG' element={<CoSupervisorGroupList/>}/>
       <Route path='/topicAccept' element={<GroupTopicAccept/>} />
+      <Route path='/supervisorAccept' element={<SupervisorTopicAccept/>}/>
       <Route path='/studentProfile' element={ <StudentProfile /> } />
-      {/* <Route path='/studentGroupReg' element={ <StudentGroupConf /> } /> */}
+      <Route path='/supervisorP' element={<SupervisorPanel/>}/>
+    
+     
       <Route exact path='/StudentRegistration' element={<StudentRegistration />} />
       <Route exact path='/studentProfile' element={ <StudentProfile /> } />
       <Route exact path='/studentGroupReg' element={ <StudentGroupConf /> } />

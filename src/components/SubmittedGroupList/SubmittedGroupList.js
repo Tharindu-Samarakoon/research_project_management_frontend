@@ -10,6 +10,12 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import { URL } from '../../constants/url';
 import GroupItem from './GroupItem';
+import { Box } from '@mui/system';
+import Navbar from '../Navbar/Navbar';
+
+
+
+
 const SubmittedGroupList=()=>{
   
 
@@ -43,14 +49,20 @@ const SubmittedGroupList=()=>{
 
     const classes = useStyles();
     return<div>
-        <Grid container spacing={3}>
-            <Grid item xs={3}>
+    
+    <Navbar/>
+    <br></br>
+    <br></br>
+    <Typography  >
+          <h2>Submitted Groups</h2> 
+          </Typography>
+        
             {/* <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-          title="Group project"
+      <CardMedia
+      className={classes.media}
+      image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+      title="Group project"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -66,15 +78,29 @@ const SubmittedGroupList=()=>{
       </CardActions>
 
       
-      
+  
     </Card> */}
+    <Box>
+ 
+
+    <div className='row'>
+
+
     {groups.map((group) => {
-                return <GroupItem group={group}  classes={classes}/>;
-              })}
+      return <GroupItem group={group}  classes={classes}/>;
+    })}
     
-            </Grid>
-      </Grid>
-      
+           
+      <br></br>
+      <br></br>
+      <br></br><br></br>
+     
+    </div>
+    
+    </Box>
+    <br></br><br></br>
+    <br></br><br></br>
+
   </div>;
 
 

@@ -7,3 +7,5 @@ export const studentLogin = (formData) => API.post('/student/auth', formData);
 
 export const studentReg = (formData) => API.post('/student/register', formData);
 
+export const staffReg = (formData) => API.post('/staff/register', formData);
+

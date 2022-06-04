@@ -21,7 +21,7 @@ const GroupItem = ({ group,classes }) => {
 
   function GroupTopicAccept (){
       let navigate =useNavigate();
-      window.location="/topicAccept"
+      window.location="/supervisorAccept"
   }
   
   return (
@@ -45,7 +45,7 @@ const GroupItem = ({ group,classes }) => {
  
 </CardContent>
 </CardActionArea>
-<Link to='/topicAccept' state ={{type:"update", groups:group}}>
+<Link to='/supervisorAccept' state ={{type:"update", groups:group}}>
 <CardActions>
         <Button variant="outlined" color="primary" value={group._id}>
           {<PageviewTwoToneIcon/>}VIEW

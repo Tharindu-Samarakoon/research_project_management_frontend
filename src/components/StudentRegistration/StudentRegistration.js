@@ -57,7 +57,7 @@ const StudentRegistration = () => {
         return false;
     } else {
         setErrorText('');
-        return true;
+        setIsValid(true);
     }
   }
 

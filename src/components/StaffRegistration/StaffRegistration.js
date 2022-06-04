@@ -16,12 +16,15 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility } from '@mui/icons-material';
 import { VisibilityOff } from '@material-ui/icons';
-// import { useDispatch } from 'react-redux'
-
+import { useDispatch } from 'react-redux'
+import {useNavigate} from 'react-router-dom';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 
 import Select from '@mui/material/Select';
+import { staffRegistration } from '../../actions/auth';
+import axios from 'axios';
+import { URL } from '../../constants/url';
 
 const theme = createTheme({
     palette: {
@@ -34,26 +37,28 @@ const theme = createTheme({
     },
   });
 
+
 const StaffRegistration = () => {
 
  // const dispatch = useDispatch();
   const [error, setErrorText] = React.useState();
-  const [staffDetails, setStaffDetails] = React.useState({firstName:'', lastName:'', profilePicture:'', email:'', password:'', department:'',role:'', research_interest:''});
+  const [staffDetails, setStaffDetails] = React.useState({firstName:'', lastName:'', department:'', role:'',research_interest:'', email:'', password:''});
   const [confPassword, setConfPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false)
   const [isValid, setIsValid] = React.useState(false);
-
+  const dispatch = useDispatch();
+  const history = useNavigate();
   
 
   const comparePassword = (event) => {
-    console.log(staffDetails.password + typeof staffDetails.password );
-    console.log(confPassword + typeof confPassword );
+    // console.log(staffDetails.password + typeof staffDetails.password );
+    // console.log(confPassword + typeof confPassword );
     if (staffDetails.password !== confPassword){
         setErrorText('Password do not match');
-        setIsValid(false);
+        return false
     } else {
         setErrorText('');
-        setIsValid(true);
+        return true
     }
   }
 
@@ -61,17 +66,20 @@ const StaffRegistration = () => {
     setShowPassword(!showPassword)
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    comparePassword();
-    
-    if(isValid) {
+    if(comparePassword()) {
       console.log(staffDetails);
+      try{
+const result = await axios.post(URL+"/staff/register",staffDetails)
+console.log(result);
+history ("/group")
+      }catch (error){
+         console.log(error);
 
-      // dispatch(staffDetails);
+      }
 
     }
-
     
 
     
@@ -119,10 +127,10 @@ const StaffRegistration = () => {
           label="department"
           onChange={(e) => setStaffDetails({ ...staffDetails, department: e.target.value })}
         >
-          <MenuItem value={"DSECS"}>Software Engineering and Computer Science</MenuItem>
-          <MenuItem value={"CSNE"}>Computer Systems and Network Engineering</MenuItem>
-          <MenuItem value={"DS"}>Data Science</MenuItem>
-          <MenuItem value={"IT"}>'Information Technology</MenuItem>
+          <MenuItem value={"Software Engineering and Computer Science"}>Software Engineering and Computer Science</MenuItem>
+          <MenuItem value={"Computer Systems and Network Engineering"}>Computer Systems and Network Engineering</MenuItem>
+          <MenuItem value={"Data Science"}>Data Science</MenuItem>
+          <MenuItem value={"Information Technology"}>Information Technology</MenuItem>
         </Select>
               </Grid>
               <Grid item xs={12}>
@@ -134,8 +142,8 @@ const StaffRegistration = () => {
           label="role"
           onChange={(e) => setStaffDetails({ ...staffDetails, role: e.target.value })}
         >
-          <MenuItem value={"Supervisor"}>Supervisor</MenuItem>
-          <MenuItem value={"CoSupervisor"}>Co-Supervisor</MenuItem>
+          <MenuItem value={"supervisor"}>Supervisor</MenuItem>
+          <MenuItem value={"coSupervisor"}>Co-Supervisor</MenuItem>
           <MenuItem value={"panelMember"}>Panel Member</MenuItem>
         </Select>
               </Grid>
@@ -143,7 +151,7 @@ const StaffRegistration = () => {
                 <TextField required fullWidth name="research_interest" value={staffDetails.research_interest} label="Research Interest" id="research_interest" autoComplete="research_interest" onChange={(e) => setStaffDetails({ ...staffDetails, research_interest: e.target.value })} />
               </Grid>
               <Grid item xs={12}>
-                <TextField required fullWidth id="email" value={staffDetails.staffEmail} label="Staff Email Address" name="email" autoComplete="email" onChange={(e) => setStaffDetails({ ...staffDetails, staffEmail: e.target.value }) } />
+                <TextField required fullWidth id="email" value={staffDetails.email} label="Staff Email Address" name="email" autoComplete="email" onChange={(e) => setStaffDetails({ ...staffDetails, email: e.target.value }) } />
               </Grid>
               <Grid item xs={12}>
                 <TextField required fullWidth name="password" label="Password" value={staffDetails.password} type={showPassword ? 'text' : 'password'} id="password" autoComplete="new-password" onChange={(e) => setStaffDetails({ ...staffDetails, password: e.target.value })} InputProps={{
